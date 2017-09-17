@@ -1,24 +1,31 @@
-// var addNewItem = function(ob) {
-//   var content = document.getElementById("content");
-//   var item = document.createElement("div");
-//   item.id = "item"
-//   item.innerHTML = 
-//     `<table>
-//       <tr>
-//         <td>IMG</td>
-//         <td>${ob.name}</td>
-//         <td>${ob.old_price}</td>
-//         <td>${ob.new_price}</td>
-//         <td>${ob.discount}</td>
-//       </tr>
-//     </table>`
-//   content.appendChild(item);
-// }
+var addNewItem = function(ob) {
+  var itemList = document.getElementsByClassName("item-list");
+  var item = document.createElement("div");
+  item.className = "item";
+  item.innerHTML = 
+    `<div class="item-img"><img src="https://dixy.ru/upload/iblock/445/%D0%A6%D0%A20027448.jpg"/></div>
+     <div class="item-name"${ob.name}></div>
+     <div class="item-cat">${ob.cat}</div>
+     <div class="item-old-price">${ob.old_price}</div>
+     <div class="item-new-price">${ob.new_price}</div>
+     <div class="item-discount">${ob.discount}</div>
+     <div class="item-date">${ob.date}</div>
+     <div class="item-cond">-</div>`;
+  itemList[0].appendChild(item);
+}
 
 
-// var jsonString = '{"name":"Max","old_price":"500$","new_price":"600$","discount":"40%"}'
-// var data = JSON.parse(jsonString)
-// addNewItem(data);
+var jsonString = '{"name":"Груша зеленая 1 кг","cat":"Овощи и фрукты","old_price":"99.99","new_price":"600$","discount":"-","date":"date"}';
+var data = JSON.parse(jsonString);
+addNewItem(data);
+addNewItem(data);
+addNewItem(data);
+addNewItem(data);
+addNewItem(data);
+addNewItem(data);
+addNewItem(data);
+
+
 
 // // http://95.129.137.5/project/dixy_items.json
 
