@@ -1,0 +1,65 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: Helvetica, Arial, sans-serif;
+
+}
+
+.grid {
+  display: grid;
+  /*grid-gap: 5px;*/
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: 
+  "hr hr"
+  "ct ct";
+}
+@media (min-width: 736px) {
+  .grid {
+    grid-template-columns: 10% repeat(4, 1fr) 10%;
+    grid-template-areas: 
+    "hr hr hr hr hr hr"
+    ". ct ct ct ct .";
+  }
+}
+
+.header {
+  grid-area: hr;
+}
+.content {
+  grid-area: ct;
+}
+.footer {
+  background-color: gray;
+  height: 50px;
+}
+
+.top-navbar {
+  text-align: center;
+  background-color: rgb(204, 153, 255);
+}
+.top-navbar ul {
+  list-style-type: none;
+}
+.top-navbar li {
+  display: inline-block;
+}
+.top-navbar a {
+  display: inline-block;
+  padding: 10px;
+  text-decoration: none;
+  text-align: center;
+  color: black;
+}
+.top-navbar a:hover {
+  background-color: rgb(153, 51, 255);
+  color: white;
+}
+
+
+/*.grid div:nth-child(even) {
+    background-color: red;
+}
+
+.grid div:nth-child(odd) {
+    background-color: green;
+}*/
