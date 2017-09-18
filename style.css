@@ -1,12 +1,19 @@
 * {
   margin: 0px;
   padding: 0px;
-  font-family: Helvetica, Arial, sans-serif;
 }
-
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: rgb(239, 242, 247);
+}
 .header {
-  grid-area: hr;
+  grid-area: header;
   background-color: rgb(204, 153, 255);
+}
+hr {
+  width: 80%;
+  border: 1px solid black;
+  margin: 0 auto;
 }
 .logo {
   padding: 10px;
@@ -14,13 +21,12 @@
   font-size: 180%;
 }
 .content {
-  grid-area: ct;
+  grid-area: content;
 }
 .footer {
   background-color: gray;
   height: 50px;
 }
-
 .top-navbar {
   font-size: font-size: 120%;
   text-align: center;
@@ -41,53 +47,6 @@
 }
 
 
-.item-img > img {
-  height: 250px;
-}
-.item {
-  justify-self: center;
-  margin: 10px;
-  padding: 10px;
-  background-color: rgb(239, 242, 247);
-  position: relative;
-  height: 270px;
-  width: 430px;
-}
-.item-name {
-  position: absolute;
-  left: 300px;
-  top: 10px;
-}
-.item-cat {
-  position: absolute;
-  left: 300px;
-  top: 50px;
-}
-.item-old-price {
-  position: absolute;
-  left: 300px;
-  top: 90px;
-}
-.item-new-price {
-  position: absolute;
-  left: 300px;
-  top: 130px;
-}
-.item-discount {
-  position: absolute;
-  left: 300px;
-  top: 170px;
-}
-.item-date {
-  position: absolute;
-  left: 300px;
-  top: 210px;
-}
-.item-cond {
-  position: absolute;
-  left: 300px;
-  top: 250px;
-}
 
 
 
@@ -96,23 +55,15 @@
   /*grid-gap: 5px;*/
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
-  "hr hr"
-  "ct ct";
-}
-.item-list {
-  background-color: lightblue;
-  display: grid;
-  grid-template-columns: 1fr;
+  "header header"
+  "content content";
 }
 @media screen and (min-width: 768px) {
   .grid {
     grid-template-columns: 10% 1fr 10%;
     grid-template-areas: 
-    "hr hr hr"
-    ". ct .";
-  }
-  .item-list {
-    grid-template-columns: 1fr 1fr;
+    "header header header"
+    ". content .";
   }
   .top-navbar li {
      display: inline-block;
