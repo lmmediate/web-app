@@ -17,7 +17,6 @@ var addNewItem = function(ob) {
 
 var jsonString = '{"name":"Груша зеленая 1кг","cat":"Овощи и фрукты","old_price":"69.50","new_price":"600$","discount":"-40%","date":"11.09-18.09"}';
 var data = JSON.parse(jsonString);
-console.log(data);
 addNewItem(data);
 addNewItem(data);
 addNewItem(data);
@@ -26,7 +25,12 @@ addNewItem(data);
 addNewItem(data);
 addNewItem(data);
 
-
-
-// // http://95.129.137.5/project/dixy_items.json
-
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var myArr = JSON.parse(this.responseText);
+        console.log(myArr[0]);
+    }
+};
+xmlhttp.open("GET", "../server/dixy_items.json", true);
+xmlhttp.send(); 

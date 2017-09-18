@@ -10,7 +10,7 @@ body {
   grid-area: header;
   background-color: rgb(204, 153, 255);
 }
-hr {
+.header>hr {
   width: 80%;
   border: 1px solid black;
   margin: 0 auto;
@@ -52,7 +52,6 @@ hr {
 
 .grid {
   display: grid;
-  /*grid-gap: 5px;*/
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
   "header header"
