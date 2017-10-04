@@ -23,35 +23,13 @@
       </div>
     </div>
     <div class="content">
-      <script id="pagination-template" type="text/x-handlebars-template">
-        <div class="pagination">
-          <ul>
-            
-          </ul>
-        </div>
-      </script>
-      <script id="discounts-template" type="text/x-handlebars-template">
-        <div class="item-list">
-          {{#each this}}
-          <div class="item">
-            <div class="item-name">{{name}}</div>
-            <div class="item-img"><img src="{{img_url}}"/></div>
-            <div class="item-cat">{{category}}</div>
-            <div class="item-old-price">{{old_price}}</div>
-            <div class="item-new-price">{{new_price}}</div>
-            <div class="item-discount">{{discount}}</div>
-            <div class="item-date">{{date}}</div>
-            <div class="item-cond">{{condition}}</div>
-          </div>
-          {{/each}}
-        </div>
-      </script>
     </div>
   </div>
   
   <!-- <div class="footer">Footer</div> -->
   
   <script src="./js/handlebars-v4.0.10.js"></script>
+  <script src="./js/templates/templates.js"></script>
   <script src="./js/main.js"></script>
 </body>
 </html>

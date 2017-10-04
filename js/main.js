@@ -1,7 +1,8 @@
 var url = "https://raw.githubusercontent.com/lmmediate/server/master/crawler/out/sales.json";
 
 var addContent = function(data) {
-  var template = Handlebars.compile(document.getElementById("discounts-template").innerHTML);
+  // var template = Handlebars.compile(document.getElementById("discounts-template").innerHTML);
+  var template = Handlebars.templates.discounts;
   document.getElementsByClassName("content")[0].innerHTML = template(data);
 };
 
