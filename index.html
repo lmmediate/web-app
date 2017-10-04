@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name='viewport' content='width=device-width, initial scale=1.0'>
   <title>ShopDiscounts</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link rel="stylesheet" type="text/css" href="style_discounts.css">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <link rel="stylesheet" type="text/css" href="./css/style_discounts.css">
 </head>
 <body>
   
@@ -23,23 +23,35 @@
       </div>
     </div>
     <div class="content">
-      <div class="item-list"></div>
+      <script id="pagination-template" type="text/x-handlebars-template">
+        <div class="pagination">
+          <ul>
+            
+          </ul>
+        </div>
+      </script>
+      <script id="discounts-template" type="text/x-handlebars-template">
+        <div class="item-list">
+          {{#each this}}
+          <div class="item">
+            <div class="item-name">{{name}}</div>
+            <div class="item-img"><img src="{{img_url}}"/></div>
+            <div class="item-cat">{{category}}</div>
+            <div class="item-old-price">{{old_price}}</div>
+            <div class="item-new-price">{{new_price}}</div>
+            <div class="item-discount">{{discount}}</div>
+            <div class="item-date">{{date}}</div>
+            <div class="item-cond">{{condition}}</div>
+          </div>
+          {{/each}}
+        </div>
+      </script>
     </div>
   </div>
   
   <!-- <div class="footer">Footer</div> -->
   
-  <script src="script.js"></script>
+  <script src="./js/handlebars-v4.0.10.js"></script>
+  <script src="./js/main.js"></script>
 </body>
 </html>
-
-<!-- <div class="item">
-  <div class="item-img"><img src="https://dixy.ru/upload/iblock/445/%D0%A6%D0%A20027448.jpg"/></div>
-  <div class="item-name">Груша зеленая 1 кг</div>
-  <div class="item-cat">Овощи и фрукты</div>
-  <div class="item-old-price">-</div>
-  <div class="item-new-price">99.99</div>
-  <div class="item-discount">-</div>
-  <div class="item-date">11/09—17/09</div>
-  <div class="item-cond">-</div>
-</div> -->
