@@ -1,4 +1,4 @@
-var url = "http://localhost:8080/api/sales";
+var url = "http://46.17.44.125:8080/api/sales";
 
 var addContent = function(data) {
   var template = Handlebars.templates.discounts;
