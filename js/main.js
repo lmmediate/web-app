@@ -1,7 +1,6 @@
-var url = "https://raw.githubusercontent.com/lmmediate/server/master/crawler/out/sales.json";
+var url = "http://localhost:8080/api/sales";
 
 var addContent = function(data) {
-  // var template = Handlebars.compile(document.getElementById("discounts-template").innerHTML);
   var template = Handlebars.templates.discounts;
   document.getElementsByClassName("content")[0].innerHTML = template(data);
 };
@@ -11,7 +10,6 @@ xmlhttp.open("GET", url);
 xmlhttp.onload = function() {
   if (xmlhttp.status === 200) {
     var data = JSON.parse(xmlhttp.responseText);
-    var pagecount = Math.floor(data.length / 50) + 1;
     addContent(data);
   } else {
     console.log("Loading error.");
