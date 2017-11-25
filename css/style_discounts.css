@@ -1,5 +1,5 @@
 /* Item list */
-.item-list {
+#item-list {
   /*background-color: lightblue;*/
   display: grid;
   grid-template-columns: 1fr;
@@ -64,7 +64,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .item-list {
+  #item-list {
     grid-template-columns: 1fr 1fr;
   }
   .item {
@@ -72,7 +72,7 @@
   }
 }
 @media screen and (min-width: 1024px) {
-  .item-list {
+  #item-list {
     grid-template-columns: 1fr 1fr 1fr;
   }
   .item {
