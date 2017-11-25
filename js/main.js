@@ -13,12 +13,25 @@ var vm = new Vue({
     },
     filter: function(event) {
       var name = event.target.value;
-      console.log(event);
-      // TODO: call a filter function from API
-      // to filter all items (not a single page)
-      this.itemsFiltered = this.items.filter(function(value) {
-        return value.name.toLowerCase().indexOf(name.toLowerCase()) !== -1;
+      var req = url + '/sales?name=' + name;
+
+      this.$http.get(req).then(res => {
+        if(name) {
+          this.itemsFiltered = res.data;
+        } else {
+          this.itemsFiltered = this.items;
+        }
+        console.log(res.data.length);
+      }, res => {
+        console.log('Error with ' + '"' + req + '"');
       });
+
+      // var name = event.target.value;
+      // // TODO: call a filter function from API
+      // // to filter all items (not a single page)
+      // this.itemsFiltered = this.items.filter(function(value) {
+      //   return value.name.toLowerCase().indexOf(name.toLowerCase()) !== -1;
+      // });
     },
   }
 });;
