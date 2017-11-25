@@ -27,6 +27,7 @@
     <div id="content">
       <div id="search-bar">
         <input type="text" placeholder="Найти" v-on:input="filter" />
+        <p>Total: {{itemsFiltered.length}}</p>
       </div>
       <div id="item-list">
         <div class="item" v-for="item in itemsFiltered">
@@ -40,7 +41,6 @@
           <div class="item-cond">{{item.condition}}</div>
         </div>
       </div>
-      <p>Total: {{total()}}</p>
     </div>
   </div>
   

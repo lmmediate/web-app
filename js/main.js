@@ -4,13 +4,10 @@ var url = 'http://localhost:8080/api';
 var vm = new Vue({
   el: '#grid',
   data: {
-    items: [],
-    itemsFiltered: []
+    items: [], // Items belonging to the current page
+    itemsFiltered: [] // Items, filtered by name
   }, 
   methods: {
-    total: function() {
-      return this.itemsFiltered.length;
-    },
     filter: function(event) {
       var name = event.target.value;
       var req = url + '/sales?name=' + name;
