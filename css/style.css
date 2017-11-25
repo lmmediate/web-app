@@ -22,6 +22,7 @@ body {
 }
 #content {
   grid-area: content;
+  padding: 10px;
 }
 #footer {
   background-color: gray;

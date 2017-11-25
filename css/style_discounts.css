@@ -1,10 +1,11 @@
+#search-bar {
+  margin-bottom: 10px;
+}
 /* Item list */
 #item-list {
   /*background-color: lightblue;*/
   display: grid;
   grid-template-columns: 1fr;
-  padding-left: 10px;
-  padding-top: 10px;
 }
 /* Single item */
 .item {
