@@ -25,28 +25,16 @@ var vm = new Vue({
       }, res => {
         console.log('Error with ' + '"' + req + '"');
       });
-
-      // var name = event.target.value;
-      // // TODO: call a filter function from API
-      // // to filter all items (not a single page)
-      // this.itemsFiltered = this.items.filter(function(value) {
-      //   return value.name.toLowerCase().indexOf(name.toLowerCase()) !== -1;
-      // });
     },
+  },
+  beforeMount: function() {
+    this.$http.get(url + '/sales/page/2').then(res => {
+      this.items = res.data;
+      this.itemsFiltered = res.data;
+    }, res => {
+      console.log('Error with ' + '"' + req + '"');
+    });
   }
 });;
-
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.open('GET', url + '/sales/page/2');
-xmlhttp.onload = function() {
-  if (xmlhttp.status === 200) {
-    var data = JSON.parse(xmlhttp.responseText);
-    vm.items = data;
-    vm.itemsFiltered = data;
-  } else {
-    console.log('Loading error.');
-  }
-};
-xmlhttp.send();
 
 
