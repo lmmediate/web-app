@@ -1,51 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name='viewport' content='width=device-width, initial scale=1.0'>
-  <title>ShopDiscounts</title>
-  <link rel="stylesheet" type="text/css" href="./css/style.css">
-  <link rel="stylesheet" type="text/css" href="./css/style_discounts.css">
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
-</head>
-<body>
-  
-  <div id="grid">
-    <div id="header">
-      <div id="logo">ShopDiscounts</div>
-      <hr>
-      <div id="top-navbar">
-        <ul>
-          <li><a href="">Акции</a></li>
-          <li><a href="">Список покупок</a></li>
-          <li><a href="">Корзина</a></li>
-          <li><a href="">Статистика</a></li>
-        </ul>
-      </div>
-    </div>
-    <div id="content">
-      <div id="search-bar">
-        <input type="text" placeholder="Найти" v-on:input="filter" />
-        <p>Total: {{itemsFiltered.length}}</p>
-      </div>
-      <div id="item-list">
-        <div class="item" v-for="item in itemsFiltered">
-          <div class="item-name">{{item.name}}</div>
-          <div class="item-img"><img v-bind:src="item.img_url"/></div>
-          <div class="item-cat">{{item.category}}</div>
-          <div class="item-old-price">{{item.old_price}}</div>
-          <div class="item-new-price">{{item.new_price}}</div>
-          <div class="item-discount">{{item.discount}}</div>
-          <div class="item-date">{{item.date}}</div>
-          <div class="item-cond">{{item.condition}}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- <div id="footer">Footer</div> -->
-  
-  <script src="./js/main.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>web-app</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="/dist/build.js"></script>
+  </body>
 </html>
