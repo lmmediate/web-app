@@ -26,5 +26,6 @@ export default {
   }
   body {
     font-family: 'Roboto', sans-serif;
+    background-color: rgb(242, 242, 242);
   }
 </style>
