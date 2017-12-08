@@ -1,10 +1,10 @@
 <template>
   <div class="item">
-    <div class="item-description">
+    <div class="item-description" v-on:click="expandName">
       <div class="item-name">{{displayName}}</div>
       <div class="item-category">{{item.category}}</div>
     </div>
-    <div class="item-img">
+    <div class="item-img" v-show="showImage">
       <img v-bind:src="item.img_url"/>
     </div>
     <hr/>
@@ -22,17 +22,33 @@
 
 <script>
 export default {
+  data: function() {
+    return {
+      maxNameLength: 80,
+      showImage: true
+    };
+  },
   props: ['item'],
+  methods: {
+    expandName: function() {
+      // TODO: always show image for small text
+      this.showImage = !this.showImage;
+      if(!this.showImage) {
+        this.maxNameLength = this.item.name.length;
+      } else {
+        this.maxNameLength = 80;
+      }
+    }
+  },
   computed: {
     checkCondition: function() {
       return this.item.condition !== '-';
     },
     displayName: function() {
-      var maxLength = 80;
-      if(this.item.name.length < maxLength) {
+      if(this.item.name.length <= this.maxNameLength){
         return this.item.name;
       } else {
-        return this.item.name.slice(0, maxLength) + '...';
+        return this.item.name.slice(0, this.maxNameLength) + '...';
       }
     }
   }
@@ -40,6 +56,9 @@ export default {
 </script>
 
 <style>
+.expand {
+  background-color: white;
+}
 hr {
   width: 90%;
   margin: 0 auto;
@@ -57,10 +76,16 @@ div.item:hover {
   outline: 1px solid black;
 }
 div.item-description {
-  /*text-align: center;*/
+  margin-bottom: 10px;
+}
+div.item-description:hover {
+  /* TODO */
+  background-color: coral;
+}
+div.item-name {
+  margin-bottom: 5px;
 }
 div.item-category {
-  margin-top: 5px;
   color: rgb(97, 97, 97);
 }
 div.item-img > img {
@@ -69,7 +94,6 @@ div.item-img > img {
 }
 div.item-img {
   margin: 0 auto;
-  margin-top: 5px;
   margin-bottom: 5px;
   width: 250px;
   height: 250px;
