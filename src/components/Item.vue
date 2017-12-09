@@ -17,6 +17,7 @@
       <div class="item-date">{{item.date}}</div>
       <div class="item-cond" v-if="checkCondition">{{item.condition}}</div>
     </div>
+    <button class="add-to-shoplist-btn">+</button>
   </div>
 </template>
 
@@ -33,10 +34,10 @@ export default {
     expandName: function() {
       // TODO: always show image for small text
       this.showImage = !this.showImage;
-      if(!this.showImage) {
-        this.maxNameLength = this.item.name.length;
-      } else {
+      if(this.showImage) {
         this.maxNameLength = 80;
+      } else {
+        this.maxNameLength = this.item.name.length;
       }
     }
   },
@@ -56,15 +57,14 @@ export default {
 </script>
 
 <style>
-.expand {
-  background-color: white;
-}
 hr {
   width: 90%;
   margin: 0 auto;
   border-top: 1px solid rgb(140, 140, 140);
 }
 div.item {
+  margin-top: 10px;
+  margin-left: 10px;
   position: relative;
   width: 280px;
   height: 460px;
@@ -81,6 +81,7 @@ div.item-description {
 div.item-description:hover {
   /* TODO */
   background-color: coral;
+  cursor: default;
 }
 div.item-name {
   margin-bottom: 5px;
@@ -104,7 +105,6 @@ div.item-price-container {
   margin-bottom: 5px;
   width: 180px;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
 }
@@ -119,5 +119,10 @@ div.item-conditions {
   position: absolute;
   bottom: 5px;
   left: 5px;
+}
+button.add-to-shoplist-btn {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 }
 </style>
