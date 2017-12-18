@@ -124,5 +124,6 @@ button.add-to-shoplist-btn {
   position: absolute;
   bottom: 5px;
   right: 5px;
+  padding: 10px;
 }
 </style>
