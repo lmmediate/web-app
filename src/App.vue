@@ -14,6 +14,16 @@ export default {
     'item-list': ItemList,
     'app-header': Header
   },
+  methods: {
+    getPage: function(num) {
+      var req = this.url + '/sales/page/' + num;
+      this.$http.get(req).then(res => {
+        this.items = res.data;
+      }, res => {
+        console.log('Error during GET request. Url: ' + req);
+      });      
+    }
+  },
   data: function() {
     return {
       url: 'http://46.17.44.125:8080/api',
@@ -29,13 +39,7 @@ export default {
     }
   },
   beforeMount: function() {
-    var req = this.url + '/sales/page/2';
-    this.$http.get(req).then(res => {
-      this.items = res.data;
-      console.log(items)
-    }, res => {
-      console.log('Error during GET request. Url: ' + req);
-    });
+    this.getPage(1);
   }
 }
 </script>
