@@ -1,11 +1,20 @@
 <template>
-  <div id="item-list">
-    <div id="pagination">
-      
-    </div>
+  <div id="content">
 
-    <item v-for="item in items" v-bind:item="item" v-bind:key="item.name"></item>
-  </div>
+    <!-- TODO: temporary pagination -->
+    <div id="pagination">
+      <ul>
+        <li v-for="i in info.numPages">
+          <button v-on:click="getPage(i)">{{i}}</button>
+       </li>
+      </ul>
+    </div>
+    
+    <div id="item-list">
+      <item v-for="item in items" v-bind:item="item" v-bind:key="item.name"></item>
+    </div>  
+
+  </div>  
 </template>
 
 <script>
@@ -22,32 +31,59 @@ export default {
         this.items = res.data;
       }, res => {
         console.log('Error during GET request. Url: ' + req);
-      });      
+      });
+    },
+    getNumPages: function() {
+      var req = this.url + '/sales/info';
+      this.$http.get(req).then(res => {
+        this.info = res.data;
+        console.log(this.info); // TODO: remove
+      }, res => {
+        console.log('Error during GET request. Url: ' + req);
+      });
     }
   },
   data: function() {
     return {
-      url: 'http://46.17.44.125:8080/api',
+      // url: 'http://46.17.44.125:8080/api',
+      url: 'http://localhost:8080/api',
       items: 
       [
       // MOCK items
       {"old_price":66.9,"name":"Биойогурт слобода мюсли-яблоки-мандарин-орех 7,6%, 210 г слобода  слобода слобода слобода слобода слободаслобода слобода слобода","condition":"-","img_url":"https://dixy.ru/upload/iblock/06c/2000262152.jpg","new_price":49.99,"date":"АКЦИЯ 04/12—10/12","discount":-25,"category":"Молочная гастрономия"}
-      ]
+      ],
+      info: {}
     }
   },
   beforeMount: function() {
+    this.getNumPages();
     this.getPage(1);
   }
 }
 </script>
 
 <style>
+
+div#content {
+  width: 90%;
+  margin: 0 auto;
+}
+
+div#pagination ul {
+  list-style-type: none;
+}
+div#pagination li {
+  display: inline-block;
+  margin: 5px;
+}
+div#pagination button {
+  padding: 5px;
+}
+
 div#item-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 90%;
-  margin: 0 auto;
 }
 @media screen and (min-width: 768px) {
   div#item-list {
