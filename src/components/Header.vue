@@ -3,10 +3,8 @@
       <div id="logo">ShopDiscounts</div>
       <div id="top-navbar">
         <ul>
-          <li><a href="">Акции</a></li>
-          <li><a href="">Список покупок</a></li>
-          <li><a href="">Корзина</a></li>
-          <li><a href="">Статистика</a></li>
+          <li><a href="./discounts">Акции</a></li>
+          <li><a href="./shoplist">Список покупок</a></li>
         </ul>
       </div>
     </div>

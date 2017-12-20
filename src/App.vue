@@ -1,17 +1,16 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <item-list></item-list>
+    <discounts></discounts>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import ItemList from './components/ItemList.vue'
 import Header from './components/Header.vue'
 
 export default {
   components: {
-    'item-list': ItemList,
     'app-header': Header
   }
 }
