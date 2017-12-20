@@ -1,6 +1,6 @@
 <template>
     <div id="header">
-      <div id="logo">ShopDiscounts</div>
+      <div id="logo"><a href="/">ShopDisounts</a></div>
       <div id="top-navbar">
         <ul>
           <li><a href="./discounts">Акции</a></li>
@@ -34,10 +34,15 @@ div#top-navbar {
 div#top-navbar ul {
   list-style-type: none;
 }
+a {
+  text-decoration: none;
+}
+a:visited {
+  color: black;
+}
 div#top-navbar a {
   display: inline-block;
   padding: 10px;
-  text-decoration: none;
   text-align: center;
   color: black;
 }

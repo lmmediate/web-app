@@ -1,6 +1,6 @@
 <template>
   <div>
-  	<h4 style="margin: 10px">Список покупок</h4>
+  	<h2 style="margin: 10px; font-weight: lighter">Список покупок</h2>
   </div>
 </template>
 
