@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <app-header></app-header>
-    <discounts></discounts>
     <router-view></router-view>
   </div>
 </template>
