@@ -1,10 +1,10 @@
 <template>
     <div id="header">
-      <div id="logo"><a href="/">ShopDisounts</a></div>
+      <div id="logo"><router-link to="/">ShopDisounts</router-link></div>
       <div id="top-navbar">
         <ul>
-          <li><a href="./discounts">Акции</a></li>
-          <li><a href="./shoplist">Список покупок</a></li>
+          <li><router-link to="/discounts">Акции</router-link></li>
+          <li><router-link to="/shoplist">Список покупок</router-link></li>
         </ul>
       </div>
     </div>
