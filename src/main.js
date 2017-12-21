@@ -12,6 +12,7 @@ Vue.use(VueRouter);
 const routes = [
   { path: '/', component: Discounts },
   { path: '/discounts', component: Discounts },
+  { path: '/discounts/:page', component: Discounts },
   { path: '/shoplist', component: ShopList },
 ];
 

@@ -5,7 +5,7 @@
     <div id="pagination">
       <ul>
         <li v-for="i in info.numPages">
-          <button v-on:click="getPage(i)">{{i}}</button>
+          <router-link v-bind:to="'/discounts/' + i">{{i}}</router-link>
        </li>
       </ul>
     </div>
@@ -26,6 +26,7 @@ export default {
   },
   methods: {
     getPage: function(num) {
+      console.log(num);
       var req = this.url + '/sales/page/' + num;
       this.$http.get(req).then(res => {
         this.items = res.data;
@@ -33,7 +34,7 @@ export default {
         console.log('Error during GET request. Url: ' + req);
       });
     },
-    getNumPages: function() {
+    getInfo: function() {
       var req = this.url + '/sales/info';
       this.$http.get(req).then(res => {
         this.info = res.data;
@@ -41,6 +42,11 @@ export default {
       }, res => {
         console.log('Error during GET request. Url: ' + req);
       });
+    }
+  },
+  watch: {
+    '$route':  function(to, from) {
+        this.getPage(to.params.page);
     }
   },
   data: function() {
@@ -56,7 +62,7 @@ export default {
     }
   },
   beforeMount: function() {
-    this.getNumPages();
+    this.getInfo();
     this.getPage(1);
   }
 }
