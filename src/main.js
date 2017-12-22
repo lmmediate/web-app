@@ -10,8 +10,8 @@ Vue.use(VueResource);
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', component: Discounts },
-  { path: '/discounts', component: Discounts },
+  { path: '/', redirect: '/discounts/1', component: Discounts },
+  { path: '/discounts', redirect: '/discounts/1', component: Discounts },
   { path: '/discounts/:page', component: Discounts },
   { path: '/shoplist', component: ShopList },
 ];
