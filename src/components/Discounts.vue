@@ -1,5 +1,6 @@
 <template>
   <div>
+    <pagination v-bind:info="info"></pagination>
     <item-list v-bind:items="items"></item-list>
     <pagination v-bind:info="info"></pagination>
   </div>
@@ -18,13 +19,9 @@ export default {
     return {
       // url: 'http://46.17.44.125:8080/api',
       url: 'http://localhost:8080/api',
-      // info: { numPages: 5 }, // FIXME: mock
-      info: { },
-      items: 
-      [
-      // MOCK items
-      {"old_price":66.9,"name":"Биойогурт слобода мюсли-яблоки-мандарин-орех 7,6%, 210 г слобода  слобода слобода слобода слобода слободаслобода слобода слобода","condition":"-","img_url":"https://dixy.ru/upload/iblock/06c/2000262152.jpg","new_price":49.99,"date":"АКЦИЯ 04/12—10/12","discount":-25,"category":"Молочная гастрономия"}
-      ],
+      info: { numPages: 5 }, // FIXME: mock
+      // info: { },
+      items: [ ],
     }
   },
   methods: {
@@ -55,7 +52,6 @@ export default {
   beforeMount: function() {
     this.getInfo();
     var page = this.$route.params.page || 1;
-    console.log(page);
     this.getPage(page);
   }
 }

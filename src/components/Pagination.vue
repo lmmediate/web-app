@@ -2,7 +2,9 @@
   <div id="pagination">
     <ul>
       <li v-for="i in info.numPages">
-        <router-link v-bind:to="'/discounts/' + i">{{i}}</router-link>
+        <router-link v-bind:to="'/discounts/' + i">
+          {{i}}
+        </router-link>
       </li>
     </ul>
   </div>
@@ -14,15 +16,31 @@ export default {
 }
 </script>
 
-<style>
-div#pagination ul {
+<style scoped>
+.router-link-active {
+  background-color: rgb(204, 153, 255);
+}
+#pagination {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+a {
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+}
+a:visited {
+  color: black;
+}
+a:hover {
+  background-color: rgb(153, 51, 255);
+  color: white;
+}
+ul {
   list-style-type: none;
 }
-div#pagination li {
+li {
   display: inline-block;
-  margin: 5px;
 }
-div#pagination button {
-  padding: 5px;
-}
+
 </style>
