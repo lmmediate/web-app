@@ -28,6 +28,7 @@ a {
   text-decoration: none;
   padding: 10px;
   display: block;
+  color: black;
 }
 a:visited {
   color: black;
