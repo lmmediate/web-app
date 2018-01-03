@@ -17,7 +17,7 @@
       <div class="item-date">{{item.date}}</div>
       <div class="item-cond" v-if="checkCondition">{{item.condition}}</div>
     </div>
-    <button class="add-to-shoplist-btn">+</button>
+    <b-btn class="add-to-shoplist-btn">+</b-btn>
   </div>
 </template>
 
@@ -63,8 +63,6 @@ hr {
   border-top: 1px solid rgb(140, 140, 140);
 }
 div.item {
-  margin-top: 10px;
-  margin-left: 10px;
   position: relative;
   width: 280px;
   height: 460px;
@@ -120,7 +118,7 @@ div.item-conditions {
   bottom: 5px;
   left: 5px;
 }
-button.add-to-shoplist-btn {
+.add-to-shoplist-btn {
   position: absolute;
   bottom: 5px;
   right: 5px;

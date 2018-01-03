@@ -1,6 +1,16 @@
 <template>
   <div id="item-list">
-    <item v-for="item in items" v-bind:item="item" v-bind:key="item.name"></item>
+    <b-container fluid>
+      <b-row>
+        <b-col cols="12" md="6" lg="4" xl="3" class="py-2" v-for="item in items" v-bind:key="item.name">
+          <item class="mx-auto" v-bind:item="item" v-bind:key="item.name"></item>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>SOME</b-col>
+      </b-row>
+    </b-container>
+
   </div>
 </template>
 
@@ -16,14 +26,5 @@ export default {
 </script>
 
 <style>
-div#item-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-@media screen and (min-width: 768px) {
-  div#item-list {
-    justify-content: flex-start;
-  }
-}
+
 </style>
