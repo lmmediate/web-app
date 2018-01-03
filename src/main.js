@@ -1,11 +1,14 @@
 import Vue from 'vue'
+import BootstrapVue from "bootstrap-vue"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap-vue/dist/bootstrap-vue.css"
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import Discounts from './components/Discounts.vue'
 import ShopList from './components/ShopList.vue'
 
-
+Vue.use(BootstrapVue)
 Vue.use(VueResource);
 Vue.use(VueRouter);
 

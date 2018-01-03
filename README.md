@@ -1,6 +1,6 @@
 # web-app
 
-> ShopDiscounts web app.
+> ShopDiscounts Web App.
 
 ## Build Setup
 
