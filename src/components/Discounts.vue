@@ -16,8 +16,6 @@ export default {
   },
   data: function() {
     return {
-      // url: 'http://46.17.44.125:8080/api',
-      url: 'http://localhost:8080/api',
       // FIXME: mock
       info: { numPages: 5 },
       items: require('../../../server/crawler/out/sales.json').slice(0, 20),
@@ -25,8 +23,7 @@ export default {
   },
   methods: {
     getInfo: function() {
-      var req = this.url + '/sales/info';
-      this.$http.get(req).then(res => {
+      this.$http.get('sales/info').then(res => {
         this.info = res.data;
         console.log(this.info); // TODO: remove
       }, res => {
@@ -35,10 +32,9 @@ export default {
     },
     getPage: function(num) {
       console.log('Loading page ' + num);
-      var req = this.url + '/sales/page/' + num;
       this.info.currentPage = +num; // cast to number
 
-      this.$http.get(req).then(res => {
+      this.$http.get('sales/page/' + num).then(res => {
         this.items = res.data;
       }, res => {
         console.log('Error during GET request. Url: ' + req);
