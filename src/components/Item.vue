@@ -17,7 +17,7 @@
       <div class="item-date">{{item.date}}</div>
       <div class="item-cond" v-if="checkCondition">{{item.condition}}</div>
     </div>
-    <b-btn class="add-to-shoplist-btn">+</b-btn>
+    <b-btn class="add-to-shoplist-btn" v-on:click="addToShopList">+</b-btn>
   </div>
 </template>
 
@@ -39,6 +39,9 @@ export default {
       } else {
         this.maxNameLength = this.item.name.length;
       }
+    },
+    addToShopList() {
+      console.log(JSON.stringify(this.item));
     }
   },
   computed: {
