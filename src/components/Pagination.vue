@@ -1,17 +1,23 @@
 <template>
   <div id="pagination">
     <b-pagination-nav
-      align="center"
-      base-url="/discounts/" 
       use-router
+      base-url="/discounts/" 
       v-bind:number-of-pages="info.numPages" 
-      v-model="info.currentPage" />
+      v-model="currentPage" />
+  {{ currentPage }}
   </div>
 </template>
 
 <script>
+// TODO: change currentPage on refresh
 export default { 
   props: ['info'],
+  data: function() {
+    return {
+      currentPage: 1
+    }
+  }
 }
 </script>
 
