@@ -7,7 +7,7 @@
           class="py-2 border"
           v-for="item in items"
           v-bind:key="item.name">
-            <item class="mx-auto" v-bind:item="item" v-bind:key="item.name"></item>
+            <item class="mx-auto" v-bind:item="item" v-bind:key="item.id"></item>
         </b-col>
       </b-row>
     </b-container>

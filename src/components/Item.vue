@@ -5,16 +5,16 @@
       <div class="item-category">{{item.category}}</div>
     </div>
     <div class="item-img" v-show="showImage">
-      <img v-bind:src="item.img_url"/>
+      <img v-bind:src="item.imageUrl"/>
     </div>
     <hr/>
     <div class="item-price-container">
-      <div class="item-old-price">{{item.old_price}}&#8381;</div>
-      <div class="item-new-price">{{item.new_price}}&#8381;</div>
+      <div class="item-old-price">{{item.oldPrice}}&#8381;</div>
+      <div class="item-new-price">{{item.newPrice}}&#8381;</div>
       <div class="item-discount">{{item.discount}}%</div>
     </div>
     <div class="item-conditions">
-      <div class="item-date">{{item.date}}</div>
+      <div class="item-date">{{item.dateIn}} - {{item.dateOut}}</div>
       <div class="item-cond" v-if="checkCondition">{{item.condition}}</div>
     </div>
     <b-btn class="add-to-shoplist-btn" v-on:click="addToShopList">+</b-btn>
