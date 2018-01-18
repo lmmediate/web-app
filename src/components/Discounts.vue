@@ -22,14 +22,16 @@ export default {
   },
   methods: {
     getInfo: function() {
-      this.$http.get('sales/info').then(res => {
+      var req = 'sales/info';
+      this.$http.get(req).then(res => {
         this.info = res.data;
       }, res => {
         console.log('Error during GET request. Url: ' + req);
       });
     },
     getItems: function() {
-      this.$http.get('sales').then(res => {
+      var req = 'sales';
+      this.$http.get(req).then(res => {
         this.items = res.data;
       }, res => {
         console.log('Error during GET request. Url: ' + req);
