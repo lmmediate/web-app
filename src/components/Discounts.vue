@@ -31,7 +31,7 @@ import Item from './Item.vue'
 export default {
   components: {
     'pagination': Pagination,
-    'item': Item'
+    'item': Item
   },
   data: function() {
     return {
