@@ -74,7 +74,13 @@ export default {
       .then(res => {
         this.items = res.data;
         // Ensure page load
-        this.currentPage = +this.$route.params.page;
+        var page = +this.$route.params.page;
+        if(page <= 0) {
+          page = 1
+        } else if(page > this.info.numPages) {
+          page = this.info.numPages
+        }
+        this.currentPage = page;
       });
   }
 }

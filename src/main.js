@@ -27,7 +27,7 @@ const router = new VueRouter({
 // 'http://46.17.44.125:8080/api',
 // 'http://localhost:8080/api',
  
-Vue.http.options.root = 'http://localhost:8080/api'; 
+Vue.http.options.root = 'http://46.17.44.125:8080/api'; 
 
 new Vue({
   el: '#app',
