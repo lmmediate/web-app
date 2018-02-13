@@ -41,6 +41,7 @@ export default {
       }
     },
     addToShopList() {
+      this.$http.post('shoplist/' + this.item.id);
       console.log(JSON.stringify(this.item));
     }
   },
