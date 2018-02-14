@@ -1,12 +1,21 @@
 <template>
   <div>
   	<h2 style="margin: 10px; font-weight: lighter">Список покупок</h2>
-    <shoplist-item 
-      v-for="(item, index) in items" 
-      v-bind:item="item" 
-      v-bind:index="index"
-      v-on:removeFromShopList="removeFromShopList($event)" >
-    </shoplist-item>
+    <b-container fluid>
+      <b-row>
+        <b-col cols="12" md="6" class="border">
+          <b-row v-for="(item, index) in items">
+            <b-col class="border">
+              <shoplist-item
+                v-bind:item="item" 
+                v-bind:index="index"
+                v-on:removeFromShopList="removeFromShopList($event)" >
+              </shoplist-item>
+            </b-col>
+          </b-row>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -19,7 +28,7 @@ export default {
   },
   data: function() {
     return {
-      items: [] 
+      items: []
     }
   },
   methods: {
