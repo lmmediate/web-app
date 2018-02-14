@@ -1,7 +1,12 @@
 <template>
   <div>
   	<h2 style="margin: 10px; font-weight: lighter">Список покупок</h2>
-    <shoplist-item v-for="item in items" v-bind:item="item"></shoplist-item>
+    <shoplist-item 
+      v-for="(item, index) in items" 
+      v-bind:item="item" 
+      v-bind:index="index"
+      v-on:removeFromShopList="removeFromShopList($event)" >
+    </shoplist-item>
   </div>
 </template>
 
@@ -15,6 +20,11 @@ export default {
   data: function() {
     return {
       items: [] 
+    }
+  },
+  methods: {
+    removeFromShopList: function(index) {
+      this.items.splice(index, 1);
     }
   },
   beforeMount: function() {

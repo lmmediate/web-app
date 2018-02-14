@@ -16,15 +16,17 @@
 export default {
   props: {
     item: {
-      default: {
-      "id":11,"name":"Кофе Tchibo family зерновой, 500 г","category":"Кофе, чай","imageUrl":"https://dixy.ru/upload/iblock/294/2000274567.jpg","oldPrice":399.9,"newPrice":299.9,"discount":-25.0,"dateIn":"2018-02-01","dateOut":"2018-02-14","crawlDate":"2018-02-01","condition":"-"}
+      type: Object,
+    },
+    index: {
+      type: Number 
     }
   },
   methods: {
     removeFromShopList: function() {
       this.$http.delete('shoplist/' + this.item.id)
         .then(res => {
-
+          this.$emit('removeFromShopList', this.index);
         });
     }
   }
