@@ -22,7 +22,10 @@ export default {
   },
   methods: {
     removeFromShopList: function() {
+      this.$http.delete('shoplist/' + this.item.id)
+        .then(res => {
 
+        });
     }
   }
 }
