@@ -4,7 +4,7 @@
     <b-container fluid>
       <b-row>
         <b-col cols="12" md="6" class="border">
-          <b-row v-for="(item, index) in items">
+          <b-row v-for="(item, index) in items" class="py-2">
             <b-col class="border">
               <shoplist-item
                 v-bind:item="item" 
