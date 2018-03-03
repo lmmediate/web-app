@@ -37,7 +37,7 @@ export default {
     }
   },
   beforeMount: function() {
-    this.$http.get('shoplist')
+    this.$http.get('api/shoplist')
       .then(res => {
         this.items = res.data;
       });

@@ -66,10 +66,10 @@ export default {
     }
   },
   beforeMount: function() {
-    this.$http.get('sales/info')
+    this.$http.get('api/sales/info')
       .then(res => {
         this.info = res.data;
-        return this.$http.get('sales');
+        return this.$http.get('api/sales');
       })
       .then(res => {
         this.items = res.data;

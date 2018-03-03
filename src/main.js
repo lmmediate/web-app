@@ -7,12 +7,14 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import Discounts from './components/Discounts.vue'
 import ShopList from './components/ShopList.vue'
+import Login from './components/Login.vue'
 
 Vue.use(BootstrapVue)
 Vue.use(VueResource);
 Vue.use(VueRouter);
 
 const routes = [
+  { path: '/login', component: Login },
   { path: '/', redirect: '/discounts/1', component: Discounts },
   { path: '/discounts', redirect: '/discounts/1', component: Discounts },
   { path: '/discounts/:page', component: Discounts },
@@ -26,8 +28,7 @@ const router = new VueRouter({
 // 'http://46.17.44.125:8080/api',
 // 'http://localhost:8080/api',
  
-Vue.http.options.root = 'http://localhost:8080/api'; 
-Vue.http.headers.common['Authorization'] = 'Basic bWF4aW06cGFzc3dvcmQ=';
+Vue.http.options.root = 'http://localhost:8080'; 
 
 new Vue({
   el: '#app',
