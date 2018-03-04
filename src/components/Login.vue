@@ -27,7 +27,7 @@ export default {
         password: this.password
       })
         .then(response => {
-          this.$http.headers.common['Authorization'] = 'Bearer ' + response.body;
+          localStorage.setItem('auth', 'Bearer ' + response.body);
         }, response => {
           // TODO: show 'bad credentials' error
           console.log('Error(' + response.status + '): ' + response.body);

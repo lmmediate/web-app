@@ -41,7 +41,11 @@ export default {
       }
     },
     addToShopList() {
-      this.$http.post('api/shoplist/' + this.item.id);
+      this.$http.post('api/shoplist/' + this.item.id, {}, {
+        headers: {
+          'Authorization': localStorage.getItem('auth')
+        }
+      });
       console.log(JSON.stringify(this.item));
     }
   },

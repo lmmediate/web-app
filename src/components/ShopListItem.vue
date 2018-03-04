@@ -32,7 +32,11 @@ export default {
   },
   methods: {
     removeFromShopList: function() {
-      this.$http.delete('shoplist/' + this.item.id)
+      this.$http.delete('api/shoplist/' + this.item.id, { 
+        headers: {
+          'Authorization': localStorage.getItem('auth')
+        }
+      })
         .then(res => {
           this.$emit('removeFromShopList', this.index);
         });

@@ -37,7 +37,11 @@ export default {
     }
   },
   beforeMount: function() {
-    this.$http.get('api/shoplist')
+    this.$http.get('api/shoplist', { 
+      headers: {
+        'Authorization': localStorage.getItem('auth')
+      }
+    })
       .then(res => {
         this.items = res.data;
       });
