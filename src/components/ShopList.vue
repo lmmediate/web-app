@@ -1,30 +1,35 @@
 <template>
   <div>
-  	<h2 style="margin: 10px; font-weight: lighter">Список покупок</h2>
-    <b-container fluid>
-      <b-row>
-        <b-col cols="12" md="6" class="border">
-          <b-row v-for="(item, index) in items" class="py-2">
-            <b-col class="border">
-              <shoplist-item
-                v-bind:item="item" 
-                v-bind:index="index"
-                v-on:removeFromShopList="removeFromShopList($event)" >
-              </shoplist-item>
-            </b-col>
-          </b-row>
-        </b-col>
-      </b-row>
-    </b-container>
+    <app-header></app-header>
+    <div id="shoplist">
+      <h2 style="margin: 10px; font-weight: lighter">Список покупок</h2>
+      <b-container fluid>
+        <b-row>
+          <b-col cols="12" md="6" class="border">
+            <b-row v-for="(item, index) in items" v-bind:key="item.id" class="py-2">
+              <b-col class="border">
+                <shoplist-item
+                  v-bind:item="item" 
+                  v-bind:index="index"
+                  v-on:removeFromShopList="removeFromShopList($event)" >
+                </shoplist-item>
+              </b-col>
+            </b-row>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
   </div>
 </template>
 
 <script>
+import Header from './Header.vue'
 import ShopListItem from './ShopListItem.vue'
 
 export default {
   components: {
-    'shoplist-item': ShopListItem
+    'shoplist-item': ShopListItem,
+    'app-header': Header
   },
   data: function() {
     return {
@@ -44,6 +49,8 @@ export default {
     })
       .then(res => {
         this.items = res.data;
+      }, res => {
+        console.log('error'); 
       });
   }
 }
