@@ -49,8 +49,9 @@ export default {
     })
       .then(res => {
         this.items = res.data;
-      }, res => {
-        console.log('Error(' + res.status + '): ' + res.body);
+      })
+      .catch(error => {
+        this.$router.push('/login');
       });
   }
 }

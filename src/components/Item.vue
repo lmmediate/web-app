@@ -45,8 +45,10 @@ export default {
         headers: {
           'Authorization': localStorage.getItem('auth')
         }
-      });
-      console.log(JSON.stringify(this.item));
+      })
+        .catch(error => {
+          this.$router.push('/login');
+        });
     }
   },
   computed: {
