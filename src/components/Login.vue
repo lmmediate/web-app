@@ -44,12 +44,12 @@ export default {
         username: this.username,
         password: this.password
       })
-        .then(response => {
-          localStorage.setItem('auth', 'Bearer ' + response.body);
+        .then(res => {
+          localStorage.setItem('auth', 'Bearer ' + res.body);
           this.$router.push('/');
-        }, response => {
+        }, res => {
           this.error = true; 
-          console.log('Error(' + response.status + '): ' + response.body);
+          console.log('Error(' + res.status + '): ' + res.body);
         });
     }
   }

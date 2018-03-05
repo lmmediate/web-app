@@ -50,7 +50,7 @@ export default {
       .then(res => {
         this.items = res.data;
       }, res => {
-        console.log('error'); 
+        console.log('Error(' + res.status + '): ' + res.body);
       });
   }
 }

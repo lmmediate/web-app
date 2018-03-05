@@ -30,6 +30,9 @@ const router = new VueRouter({
  
 Vue.http.options.root = 'http://localhost:8080'; 
 
+// Vue.http.interceptors.push(function (request, next) {
+// });
+
 new Vue({
   el: '#app',
   router: router,
