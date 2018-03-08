@@ -23,9 +23,9 @@
               <b-col class="border">
                 <b-list-group>
                   <b-list-group-item 
-                     v-for="item in customItemList"
+                     v-for="item in customItems"
                      v-bind:key="item">
-                    {{item}}
+                    {{item.item}}
                   </b-list-group-item>
                 </b-list-group>
               </b-col>
@@ -37,10 +37,12 @@
                      ref="modal"
                      id="add-custom"
                      title="Добавить в список покупок"
+                     v-on:shown="focusInput"
                      v-on:ok="handleOk"
                      v-on:cancel="handleCancel">
                   <b-form v-on:submit.stop.prevent="addCustomItem">
                     <b-form-input 
+                     ref="input"
                      type="text"
                      v-model="customItem"
                      placeholder="Название товара"></b-form-input>
@@ -67,7 +69,7 @@ export default {
   data: function() {
     return {
       items: [],
-      customItemList: [],
+      customItems: [],
       customItem: ''
     }
   },
@@ -82,11 +84,21 @@ export default {
     handleCancel: function(evt) {
       this.customItem = '';
     },
+    focusInput: function(evt) {
+      this.$refs.input.focus();
+    },
     addCustomItem: function() {
       // TODO: handle string of whitespaces
       if(this.customItem) {
-        // TODO: send post request here
-        this.customItemList.push(this.customItem);
+       this.$http.post('api/shoplist/add?custom=' + this.customItem, {}, {
+         headers: {
+           'Authorization': localStorage.getItem('auth')
+         }
+       })
+          .then(res => {
+            this.customItems.push(res.data);
+          })
+          .catch(error => alert(error));
       }
       this.customItem = '';
       this.$refs.modal.hide();
@@ -96,17 +108,18 @@ export default {
     }
   },
   beforeMount: function() {
-//    this.$http.get('api/shoplist', { 
-//      headers: {
-//        'Authorization': localStorage.getItem('auth')
-//      }
-//    })
-//      .then(res => {
-//        this.items = res.data;
-//      })
-//      .catch(error => {
-//        this.$router.push('/login');
-//      });
+    this.$http.get('api/shoplist', { 
+      headers: {
+        'Authorization': localStorage.getItem('auth')
+      }
+    })
+      .then(res => {
+        this.items = res.data.items;
+        this.customItems = res.data.customItems;
+      })
+      .catch(error => {
+        this.$router.push('/login');
+      });
   }
 }
 </script>
