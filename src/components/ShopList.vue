@@ -6,12 +6,14 @@
       <b-container fluid>
         <b-row>
           <b-col cols="12" md="6" class="border">
-            <b-row v-for="(item, index) in items" v-bind:key="item.id" class="py-2">
+            <b-row v-for="(item, index) in items"
+                   v-bind:key="item.id"
+                   class="py-2">
               <b-col class="border">
                 <shoplist-item
-                  v-bind:item="item" 
-                  v-bind:index="index"
-                  v-on:removeFromShopList="removeFromShopList($event)" >
+                     v-bind:item="item" 
+                     v-bind:index="index"
+                     v-on:removeFromShopList="removeFromShopList($event)" >
                 </shoplist-item>
               </b-col>
             </b-row>
@@ -20,18 +22,29 @@
             <b-row class="py-2">
               <b-col class="border">
                 <b-list-group>
-                  <b-list-group-item>One</b-list-group-item>
-                  <b-list-group-item>One</b-list-group-item>
-                  <b-list-group-item>One</b-list-group-item>
-                  <b-list-group-item>One</b-list-group-item>
+                  <b-list-group-item 
+                     v-for="item in customItemList"
+                     v-bind:key="item">
+                    {{item}}
+                  </b-list-group-item>
                 </b-list-group>
               </b-col>
             </b-row>
             <b-row class="py-2">
               <b-col class="border">
                 <b-btn v-b-modal.add-custom>Добавить</b-btn>
-                <b-modal id="add-custom" title="Bootstrap-Vue">
-                  <p>Hello from modal!</p>
+                <b-modal
+                     ref="modal"
+                     id="add-custom"
+                     title="Добавить в список покупок"
+                     v-on:ok="handleOk"
+                     v-on:cancel="handleCancel">
+                  <b-form v-on:submit.stop.prevent="addCustomItem">
+                    <b-form-input 
+                     type="text"
+                     v-model="customItem"
+                     placeholder="Название товара"></b-form-input>
+                  </b-form>
                 </b-modal>
               </b-col>
             </b-row>
@@ -53,12 +66,33 @@ export default {
   },
   data: function() {
     return {
-      items: []
+      items: [],
+      customItemList: [],
+      customItem: ''
     }
   },
   methods: {
     removeFromShopList: function(index) {
       this.items.splice(index, 1);
+    },
+    handleOk: function(evt) {
+      evt.preventDefault();
+      this.addCustomItem();
+    },
+    handleCancel: function(evt) {
+      this.customItem = '';
+    },
+    addCustomItem: function() {
+      // TODO: handle string of whitespaces
+      if(this.customItem) {
+        // TODO: send post request here
+        this.customItemList.push(this.customItem);
+      }
+      this.customItem = '';
+      this.$refs.modal.hide();
+    },
+    removeCustomItem: function(index) {
+
     }
   },
   beforeMount: function() {
