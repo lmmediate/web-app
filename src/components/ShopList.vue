@@ -16,6 +16,26 @@
               </b-col>
             </b-row>
           </b-col>
+          <b-col cols="12" md="6" class="border">
+            <b-row class="py-2">
+              <b-col class="border">
+                <b-list-group>
+                  <b-list-group-item>One</b-list-group-item>
+                  <b-list-group-item>One</b-list-group-item>
+                  <b-list-group-item>One</b-list-group-item>
+                  <b-list-group-item>One</b-list-group-item>
+                </b-list-group>
+              </b-col>
+            </b-row>
+            <b-row class="py-2">
+              <b-col class="border">
+                <b-btn v-b-modal.add-custom>Добавить</b-btn>
+                <b-modal id="add-custom" title="Bootstrap-Vue">
+                  <p>Hello from modal!</p>
+                </b-modal>
+              </b-col>
+            </b-row>
+          </b-col>
         </b-row>
       </b-container>
     </div>
@@ -42,17 +62,17 @@ export default {
     }
   },
   beforeMount: function() {
-    this.$http.get('api/shoplist', { 
-      headers: {
-        'Authorization': localStorage.getItem('auth')
-      }
-    })
-      .then(res => {
-        this.items = res.data;
-      })
-      .catch(error => {
-        this.$router.push('/login');
-      });
+//    this.$http.get('api/shoplist', { 
+//      headers: {
+//        'Authorization': localStorage.getItem('auth')
+//      }
+//    })
+//      .then(res => {
+//        this.items = res.data;
+//      })
+//      .catch(error => {
+//        this.$router.push('/login');
+//      });
   }
 }
 </script>
