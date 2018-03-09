@@ -21,17 +21,6 @@
           <b-col cols="12" md="6" class="border">
             <b-row class="py-2">
               <b-col class="border">
-                <b-list-group>
-                  <b-list-group-item 
-                     v-for="item in customItems"
-                     v-bind:key="item">
-                    {{item.item}}
-                  </b-list-group-item>
-                </b-list-group>
-              </b-col>
-            </b-row>
-            <b-row class="py-2">
-              <b-col class="border">
                 <b-btn v-b-modal.add-custom>Добавить</b-btn>
                 <b-modal
                      ref="modal"
@@ -48,6 +37,27 @@
                      placeholder="Название товара"></b-form-input>
                   </b-form>
                 </b-modal>
+              </b-col>
+            </b-row>
+            <b-row class="py-2">
+              <b-col class="border">
+                <div role="tablist">
+                  <b-card no-body class="mb-1" v-for="item in customItems">
+                    <b-card-header class="p-1" header-tag="header" role="tab">
+                      <b-btn block href="#" variant="info" v-b-toggle="'collapse' + item.id">{{item.item}}</b-btn>
+                    </b-card-header>
+                    <b-collapse v-bind:id="'collapse' + item.id" accordion="my-accordion" role="tabpanel">
+                      <b-card-body>
+                        <p class="card-text">
+                          <shoplist-item
+                             v-for="matchingItem in item.matchingItems"
+                             v-bind:item="matchingItem">
+                          </shoplist-item>
+                        </p>
+                      </b-card-body>
+                    </b-collapse>
+                  </b-card>
+                </div>
               </b-col>
             </b-row>
           </b-col>
