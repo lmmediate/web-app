@@ -5,11 +5,11 @@
       <h2 style="margin: 10px; font-weight: lighter">Список покупок</h2>
       <b-container fluid>
         <b-row>
-          <b-col cols="12" md="6" class="border">
+          <b-col cols="12" md="6" >
             <b-row v-for="(item, index) in items"
                    v-bind:key="item.id"
                    class="py-2">
-              <b-col class="border">
+              <b-col >
                 <shoplist-item
                      v-bind:item="item" 
                      v-bind:index="index"
@@ -18,9 +18,9 @@
               </b-col>
             </b-row>
           </b-col>
-          <b-col cols="12" md="6" class="border">
+          <b-col cols="12" md="6" >
             <b-row class="py-2">
-              <b-col class="border">
+              <b-col >
                 <b-btn v-b-modal.add-custom>Добавить</b-btn>
                 <b-modal
                      ref="modal"
@@ -40,23 +40,15 @@
               </b-col>
             </b-row>
             <b-row class="py-2">
-              <b-col class="border">
+              <b-col >
                 <div role="tablist">
-                  <b-card no-body class="mb-1" v-for="item in customItems">
-                    <b-card-header class="p-1" header-tag="header" role="tab">
-                      <b-btn block href="#" variant="info" v-b-toggle="'collapse' + item.id">{{item.item}}</b-btn>
-                    </b-card-header>
-                    <b-collapse v-bind:id="'collapse' + item.id" accordion="my-accordion" role="tabpanel">
-                      <b-card-body>
-                        <p class="card-text">
-                          <shoplist-item
-                             v-for="matchingItem in item.matchingItems"
-                             v-bind:item="matchingItem">
-                          </shoplist-item>
-                        </p>
-                      </b-card-body>
-                    </b-collapse>
-                  </b-card>
+                  <shoplist-custom-item
+                     v-for="(item, index) in customItems"
+                     v-on:removeCustomItem="removeCustomItem($event)"
+                     v-bind:key="item.id"
+                     v-bind:index="index"
+                     v-bind:item="item">
+                  </shoplist-custom-item>
                 </div>
               </b-col>
             </b-row>
@@ -70,10 +62,12 @@
 <script>
 import Header from './Header.vue'
 import ShopListItem from './ShopListItem.vue'
+import ShopListCustomItem from './ShopListCustomItem.vue'
 
 export default {
   components: {
     'shoplist-item': ShopListItem,
+    'shoplist-custom-item': ShopListCustomItem,
     'app-header': Header
   },
   data: function() {
@@ -114,7 +108,7 @@ export default {
       this.$refs.modal.hide();
     },
     removeCustomItem: function(index) {
-
+      this.customItems.splice(index, 1);
     }
   },
   beforeMount: function() {
