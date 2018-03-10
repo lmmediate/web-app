@@ -40,7 +40,7 @@ export default {
         this.maxNameLength = this.item.name.length;
       }
     },
-    addToShopList() {
+    addToShopList: function() {
       this.$http.post('api/shoplist/add?id=' + this.item.id, {}, {
         headers: {
           'Authorization': localStorage.getItem('auth')
