@@ -10,10 +10,11 @@
           К сожалению, таких товаров не нашлось...
         </p>
         <p class="card-text">
-        <shoplist-item
+        <item-small
+           class="mx-auto"
            v-for="matchingItem in item.matchingItems"
            v-bind:item="matchingItem">
-        </shoplist-item>
+        </item-small>
         </p>
       </b-card-body>
     </b-collapse>
@@ -23,10 +24,12 @@
 
 <script>
 import ShopListItem from './ShopListItem.vue'
+import ItemSmall from './ItemSmall.vue'
 
 export default {
   components: {
     'shoplist-item': ShopListItem,
+    'item-small': ItemSmall
   },
   props: {
     index: {

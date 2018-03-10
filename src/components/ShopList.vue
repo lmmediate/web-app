@@ -2,19 +2,20 @@
   <div>
     <app-header></app-header>
     <div id="shoplist">
-      <h2 style="margin: 10px; font-weight: lighter">Список покупок</h2>
+      <!-- <h2 style="margin: 10px; font-weight: lighter">Список покупок</h2> -->
       <b-container fluid>
-        <b-row>
+        <b-row class="mt-2">
           <b-col cols="12" md="6" >
             <b-row v-for="(item, index) in items"
                    v-bind:key="item.id"
                    class="py-2">
-              <b-col >
-                <shoplist-item
+              <b-col>
+                <item-small
+                     class="mx-auto"
                      v-bind:item="item" 
                      v-bind:index="index"
                      v-on:removeFromShopList="removeFromShopList($event)" >
-                </shoplist-item>
+                </item-small>
               </b-col>
             </b-row>
           </b-col>
@@ -63,12 +64,14 @@
 import Header from './Header.vue'
 import ShopListItem from './ShopListItem.vue'
 import ShopListCustomItem from './ShopListCustomItem.vue'
+import ItemSmall from './ItemSmall.vue'
 
 export default {
   components: {
     'shoplist-item': ShopListItem,
     'shoplist-custom-item': ShopListCustomItem,
-    'app-header': Header
+    'app-header': Header,
+    'item-small': ItemSmall
   },
   data: function() {
     return {

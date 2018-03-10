@@ -11,7 +11,7 @@
     <div class="item-price-container">
       <div class="item-old-price">{{item.oldPrice}}&#8381;</div>
       <div class="item-new-price">{{item.newPrice}}&#8381;</div>
-      <div class="item-discount">{{item.discount}}%</div>
+      <div class="item-discount">{{parseDiscount}}</div>
     </div>
     <div class="item-conditions">
       <div class="item-date">{{item.dateIn}} - {{item.dateOut}}</div>
@@ -60,6 +60,14 @@ export default {
         return this.item.name;
       } else {
         return this.item.name.slice(0, this.maxNameLength) + '...';
+      }
+    },
+    parseDiscount: function() {
+      var disc = +this.item.discount;
+      if(Number.isNaN(disc)) {
+        return '';
+      } else {
+        return disc + '%';
       }
     }
   }
@@ -133,5 +141,11 @@ div.item-conditions {
   bottom: 5px;
   right: 5px;
   padding: 10px;
+}
+.item-discount {
+  padding: 2px;
+  border-radius: 5px;
+  background-color: rgb(244, 209, 66);
+  display: inline-block;
 }
 </style>

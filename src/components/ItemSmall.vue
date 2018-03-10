@@ -9,7 +9,7 @@
         <div class="item-category">{{item.category}}</div>
         <div class="item-old-price">{{item.oldPrice}}&#8381;</div>
         <div class="item-new-price">{{item.newPrice}}&#8381;</div>
-        <div class="item-discount">{{item.discount}}%</div>
+        <div class="item-discount">{{parseDiscount}}</div>
       </div>
     </div>
     <div class="item-conditions">
@@ -22,21 +22,21 @@
 
 <script>
 export default {
-  //props: ['item']
+  props: ['item'],
   data: function() {
     return {
-      item: {
-        "name": "Лук репчатый красный, 1 кг Лук репчатый красный, 1 кг Лук репчатый красный, 1 кг Лук репчатый красный, 1 кг Лук репчатый, 1 кг",
-        "category": "Овощи и фрукты", 
-        "imageUrl": "https://dixy.ru/upload/iblock/289/2000003216.jpg", 
-        "oldPrice": 47.1,
-        "newPrice": 39.99,
-        "discount": "-15", 
-        "dateIn": "2018-03-05",
-        "dateOut": "2018-03-11", 
-        "crawlDate": "2018-03-05", 
-        "condition": "-"
-      },
+//      item: {
+//        "name": "Лук репчатый красный, 1 кг Лук репчатый красный, 1 кг Лук репчатый красный, 1 кг Лук репчатый красный, 1 кг Лук репчатый, 1 кг",
+//        "category": "Овощи и фрукты", 
+//        "imageUrl": "https://dixy.ru/upload/iblock/289/2000003216.jpg", 
+//        "oldPrice": 47.1,
+//        "newPrice": 39.99,
+//        "discount": "-15", 
+//        "dateIn": "2018-03-05",
+//        "dateOut": "2018-03-11", 
+//        "crawlDate": "2018-03-05", 
+//        "condition": "-"
+//      },
       maxNameLength: 40
     }
   }, 
@@ -47,6 +47,14 @@ export default {
       } else {
         return this.item.name.slice(0, this.maxNameLength) + '...';
       }
+    },
+    parseDiscount: function() {
+      var disc = +this.item.discount;
+      if(Number.isNaN(disc)) {
+        return '';
+      } else {
+        return disc + '%';
+      }
     }
   }
 }
@@ -56,7 +64,8 @@ export default {
 .item {
   padding: 5px;
   background-color: white;
-  width: 80%;
+  box-shadow: 3px 3px 15px -5px rgba(0,0,0,0.5);
+  width: 90%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
