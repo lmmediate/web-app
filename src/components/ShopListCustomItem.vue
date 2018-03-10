@@ -13,6 +13,9 @@
         <item-small
            class="mx-auto"
            v-for="matchingItem in item.matchingItems"
+           v-on:addToShopList="addToShopList($event)"
+           v-on:removeCustomItem="remove"
+           btnText="+"
            v-bind:item="matchingItem">
         </item-small>
         </p>
@@ -49,6 +52,9 @@ export default {
     }
   },
   methods: {
+    addToShopList: function(item) {
+      this.$emit('addToShopList', item);
+    },
     remove: function() {
       this.$http.delete('api/shoplist/delete?customid=' + this.item.id, { 
         headers: {

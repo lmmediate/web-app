@@ -16,13 +16,13 @@
       <!-- <div class="item-date">{{item.dateIn}} - {{item.dateOut}}</div> -->
       <!-- <div class="item-cond">{{item.condition}}</div> -->
     </div>
-    <b-btn class="add-to-shoplist-btn">+</b-btn>
+    <b-btn class="add-to-shoplist-btn" v-on:click="handleBtnClick">{{btnText}}</b-btn>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['item'],
+  props: ['item', 'btnText', 'index'],
   data: function() {
     return {
 //      item: {
@@ -55,6 +55,36 @@ export default {
       } else {
         return disc + '%';
       }
+    }
+  },
+  methods: {
+    handleBtnClick: function() {
+      if(this.btnText === '+') {
+        this.addToShopList();
+      } else if(this.btnText === '-') {
+        this.removeFromShopList();
+      }
+    },
+    addToShopList: function() {
+      this.$http.post('api/shoplist/add?id=' + this.item.id, {}, {
+        headers: {
+          'Authorization': localStorage.getItem('auth')
+        }
+      })
+        .then(res => {
+          this.$emit('addToShopList', this.item);
+          this.$emit('removeCustomItem');
+        });
+    },
+    removeFromShopList: function() {
+      this.$http.delete('api/shoplist/delete?id=' + this.item.id, { 
+        headers: {
+          'Authorization': localStorage.getItem('auth')
+        }
+      })
+        .then(res => {
+          this.$emit('removeFromShopList', this.index);
+        });
     }
   }
 }

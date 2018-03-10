@@ -14,6 +14,7 @@
                      class="mx-auto"
                      v-bind:item="item" 
                      v-bind:index="index"
+                     btnText="-"
                      v-on:removeFromShopList="removeFromShopList($event)" >
                 </item-small>
               </b-col>
@@ -46,9 +47,10 @@
                   <shoplist-custom-item
                      v-for="(item, index) in customItems"
                      v-on:removeCustomItem="removeCustomItem($event)"
+                     v-on:addToShopList="addToShopList($event)"
                      v-bind:key="item.id"
                      v-bind:index="index"
-                     v-bind:item="item">
+                     v-bind:item="item" >
                   </shoplist-custom-item>
                 </div>
               </b-col>
@@ -81,6 +83,9 @@ export default {
     }
   },
   methods: {
+    addToShopList: function(item) {
+      this.items.push(item);
+    },
     removeFromShopList: function(index) {
       this.items.splice(index, 1);
     },
