@@ -9,27 +9,27 @@
     </div>
     <hr/>
     <div class="item-price-container">
-      <div class="item-old-price">{{item.oldPrice}}&#8381;</div>
-      <div class="item-new-price">{{item.newPrice}}&#8381;</div>
+      <div class="item-old-price">{{parseOldPrice}}</div>
+      <div class="item-new-price">{{parseNewPrice}}</div>
       <div class="item-discount">{{parseDiscount}}</div>
     </div>
     <div class="item-conditions">
       <div class="item-date">{{item.dateIn}} - {{item.dateOut}}</div>
-      <div class="item-cond" v-if="checkCondition">{{item.condition}}</div>
+      <div class="item-cond">{{parseCondition}}</div>
     </div>
-    <b-btn class="add-to-shoplist-btn" v-on:click="addToShopList">+</b-btn>
+    <b-btn class="add-btn" v-on:click="addToShopList">+</b-btn>
   </div>
 </template>
 
 <script>
 export default {
+  props: ['item'],
   data: function() {
     return {
       maxNameLength: 80,
       showImage: true
     };
   },
-  props: ['item'],
   methods: {
     expandName: function() {
       // TODO: always show image for small text
@@ -41,26 +41,23 @@ export default {
       }
     },
     addToShopList: function() {
-      this.$http.post('api/shoplist/add?id=' + this.item.id, {}, {
-        headers: {
-          'Authorization': localStorage.getItem('auth')
-        }
-      })
+      this.$http.post('api/shoplist/add?id=' + this.item.id)
         .catch(error => {
           this.$router.push('/login');
         });
     }
   },
   computed: {
-    checkCondition: function() {
-      return this.item.condition !== '-';
-    },
     displayName: function() {
       if(this.item.name.length <= this.maxNameLength){
         return this.item.name;
       } else {
         return this.item.name.slice(0, this.maxNameLength) + '...';
       }
+    },
+    parseCondition: function() {
+      var cond = this.item.condition;
+      return cond === '-' ? '' : cond;
     },
     parseDiscount: function() {
       var disc = +this.item.discount;
@@ -69,6 +66,12 @@ export default {
       } else {
         return disc + '%';
       }
+    },
+    parseOldPrice: function() {
+      return this.item.oldPrice + '\u20BD';
+    },
+    parseNewPrice: function() {
+      return this.item.newPrice + '\u20BD';
     }
   }
 }
@@ -80,42 +83,42 @@ hr {
   margin: 0 auto;
   border-top: 1px solid rgb(140, 140, 140);
 }
-div.item {
+.item {
   position: relative;
   width: 280px;
-  height: 460px;
+  height: 440px;
   padding: 5px;
   background-color: white;
   box-shadow: 3px 3px 15px -5px rgba(0,0,0,0.5);
 }
-div.item:hover {
+.item:hover {
   outline: 1px solid black;
 }
-div.item-description {
+.item-description {
   margin-bottom: 10px;
 }
-div.item-description:hover {
+.item-description:hover {
   /* TODO */
   background-color: coral;
   cursor: default;
 }
-div.item-name {
+.item-name {
   margin-bottom: 5px;
 }
-div.item-category {
+.item-category {
   color: rgb(97, 97, 97);
 }
-div.item-img > img {
+.item-img > img {
   width: 100%;
   height: 100%;
 }
-div.item-img {
+.item-img {
   margin: 0 auto;
   margin-bottom: 5px;
   width: 250px;
   height: 250px;
 }
-div.item-price-container {
+.item-price-container {
   margin: 0 auto;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -124,19 +127,19 @@ div.item-price-container {
   align-items: center;
   justify-content: space-around;
 }
-div.item-old-price {
+.item-old-price {
   color: rgb(97, 97, 97);
   text-decoration: line-through;
 }
-div.item-new-price {
+.item-new-price {
   font-size: 1.5em;
 }
-div.item-conditions {
+.item-conditions {
   position: absolute;
   bottom: 5px;
   left: 5px;
 }
-.add-to-shoplist-btn {
+.add-btn {
   position: absolute;
   bottom: 5px;
   right: 5px;

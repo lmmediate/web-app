@@ -1,17 +1,19 @@
 <template>
-  <b-card no-body class="mb-1" border-variant="light">
+  <b-card no-body class="mb-1" border-variant="light" align="center">
     <b-card-header class="p-1" header-tag="header" role="tab">
-      <b-btn block href="#" v-bind:variant="variant" v-b-toggle="'collapse' + item.id">{{item.item}}</b-btn>
+      <b-btn block href="#" v-bind:variant="variant" v-b-toggle="'collapse' + item.id">
+        {{item.item}} ({{item.matchingItems.length}})
+      </b-btn>
     </b-card-header>
     <b-collapse v-bind:id="'collapse' + item.id" accordion="my-accordion" role="tabpanel">
       <b-card-body>
-        <b-btn v-on:click="remove">Удалить</b-btn>
+        <b-btn class="mb-2" v-on:click="remove">Удалить</b-btn>
         <p class="card-text" v-if="item.matchingItems.length === 0">
           К сожалению, таких товаров не нашлось...
         </p>
         <p class="card-text">
         <item-small
-           class="mx-auto"
+           class="mx-auto mb-2"
            v-for="matchingItem in item.matchingItems"
            v-on:addToShopList="addToShopList($event)"
            v-on:removeCustomItem="remove"
@@ -26,22 +28,13 @@
 
 
 <script>
-import ShopListItem from './ShopListItem.vue'
 import ItemSmall from './ItemSmall.vue'
 
 export default {
   components: {
-    'shoplist-item': ShopListItem,
     'item-small': ItemSmall
   },
-  props: {
-    index: {
-      type: Number
-    },
-    item: {
-      type: Object
-    }
-  },
+  props: ['index', 'item'],
   computed: {
     variant: function() {
       if(this.item.matchingItems.length) {

@@ -2,13 +2,12 @@
   <div>
     <app-header></app-header>
     <div id="shoplist">
-      <!-- <h2 style="margin: 10px; font-weight: lighter">Список покупок</h2> -->
       <b-container fluid>
         <b-row class="mt-2">
-          <b-col cols="12" md="6" >
+          <b-col cols="12" md="6">
             <b-row v-for="(item, index) in items"
                    v-bind:key="item.id"
-                   class="py-2">
+                   class="mb-2">
               <b-col>
                 <item-small
                      class="mx-auto"
@@ -21,8 +20,8 @@
             </b-row>
           </b-col>
           <b-col cols="12" md="6" >
-            <b-row class="py-2">
-              <b-col >
+            <b-row class="mb-2">
+              <b-col>
                 <b-btn v-b-modal.add-custom>Добавить</b-btn>
                 <b-modal
                      ref="modal"
@@ -33,15 +32,16 @@
                      v-on:cancel="handleCancel">
                   <b-form v-on:submit.stop.prevent="addCustomItem">
                     <b-form-input 
-                     ref="input"
-                     type="text"
-                     v-model="customItem"
-                     placeholder="Название товара"></b-form-input>
+                       ref="input"
+                       type="text"
+                       v-model="customItem"
+                       placeholder="Название товара">
+                    </b-form-input>
                   </b-form>
                 </b-modal>
               </b-col>
             </b-row>
-            <b-row class="py-2">
+            <b-row class="mb-2">
               <b-col >
                 <div role="tablist">
                   <shoplist-custom-item
@@ -64,13 +64,11 @@
 
 <script>
 import Header from './Header.vue'
-import ShopListItem from './ShopListItem.vue'
 import ShopListCustomItem from './ShopListCustomItem.vue'
 import ItemSmall from './ItemSmall.vue'
 
 export default {
   components: {
-    'shoplist-item': ShopListItem,
     'shoplist-custom-item': ShopListCustomItem,
     'app-header': Header,
     'item-small': ItemSmall
@@ -102,15 +100,11 @@ export default {
     addCustomItem: function() {
       // TODO: handle string of whitespaces
       if(this.customItem) {
-       this.$http.post('api/shoplist/add?custom=' + this.customItem, {}, {
-         headers: {
-           'Authorization': localStorage.getItem('auth')
-         }
-       })
-          .then(res => {
-            this.customItems.push(res.data);
-          })
-          .catch(error => alert(error));
+       this.$http.post('api/shoplist/add?custom=' + this.customItem)
+         .then(res => {
+           this.customItems.push(res.data);
+         })
+         .catch(error => alert(error));
       }
       this.customItem = '';
       this.$refs.modal.hide();
@@ -120,11 +114,7 @@ export default {
     }
   },
   beforeMount: function() {
-    this.$http.get('api/shoplist', { 
-      headers: {
-        'Authorization': localStorage.getItem('auth')
-      }
-    })
+    this.$http.get('api/shoplist')
       .then(res => {
         this.items = res.data.items;
         this.customItems = res.data.customItems;

@@ -12,8 +12,12 @@
           <b-nav-item to="/shoplist">Список покупок</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item v-if="!isLoggedIn" to="/login">Войти</b-nav-item>
-          <b-nav-item v-if="isLoggedIn" v-on:click="logout">Выйти</b-nav-item>
+          <b-nav-item v-if="!isLoggedIn" to="/login">
+            Войти
+          </b-nav-item>
+          <b-nav-item v-if="isLoggedIn" v-on:click="logout">
+            Выйти
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -36,11 +40,7 @@ export default {
     }
   },
   beforeMount: function() {
-    this.$http.get('api/shoplist', { 
-      headers: {
-        'Authorization': localStorage.getItem('auth')
-      }
-    })
+    this.$http.get('api/shoplist')
       .then(() => {
         this.isLoggedIn = true;
       })

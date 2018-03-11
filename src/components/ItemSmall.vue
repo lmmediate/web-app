@@ -7,8 +7,8 @@
       <div class="item-description">
         <div class="item-name">{{displayName}}</div>
         <div class="item-category">{{item.category}}</div>
-        <div class="item-old-price">{{item.oldPrice}}&#8381;</div>
-        <div class="item-new-price">{{item.newPrice}}&#8381;</div>
+        <div class="item-old-price">{{parseOldPrice}}</div>
+        <div class="item-new-price">{{parseNewPrice}}</div>
         <div class="item-discount">{{parseDiscount}}</div>
       </div>
     </div>
@@ -25,18 +25,6 @@ export default {
   props: ['item', 'btnText', 'index'],
   data: function() {
     return {
-//      item: {
-//        "name": "Лук репчатый красный, 1 кг Лук репчатый красный, 1 кг Лук репчатый красный, 1 кг Лук репчатый красный, 1 кг Лук репчатый, 1 кг",
-//        "category": "Овощи и фрукты", 
-//        "imageUrl": "https://dixy.ru/upload/iblock/289/2000003216.jpg", 
-//        "oldPrice": 47.1,
-//        "newPrice": 39.99,
-//        "discount": "-15", 
-//        "dateIn": "2018-03-05",
-//        "dateOut": "2018-03-11", 
-//        "crawlDate": "2018-03-05", 
-//        "condition": "-"
-//      },
       maxNameLength: 40
     }
   }, 
@@ -48,6 +36,10 @@ export default {
         return this.item.name.slice(0, this.maxNameLength) + '...';
       }
     },
+    parseCondition: function() {
+      var cond = this.item.condition;
+      return cond === '-' ? '' : cond;
+    },
     parseDiscount: function() {
       var disc = +this.item.discount;
       if(Number.isNaN(disc)) {
@@ -55,6 +47,12 @@ export default {
       } else {
         return disc + '%';
       }
+    },
+    parseOldPrice: function() {
+      return this.item.oldPrice + '\u20BD';
+    },
+    parseNewPrice: function() {
+      return this.item.newPrice + '\u20BD';
     }
   },
   methods: {
@@ -66,11 +64,7 @@ export default {
       }
     },
     addToShopList: function() {
-      this.$http.post('api/shoplist/add?id=' + this.item.id, {}, {
-        headers: {
-          'Authorization': localStorage.getItem('auth')
-        }
-      })
+      this.$http.post('api/shoplist/add?id=' + this.item.id)
         .then(res => {
           this.$emit('addToShopList', this.item);
           this.$emit('removeCustomItem');
