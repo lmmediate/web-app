@@ -2,7 +2,7 @@
   <div class="item">
     <div class="item-main-info">
       <div class="item-img">
-        <img v-bind:src="item.imageUrl"/>
+        <b-img v-bind:src="item.imageUrl" fluid />
       </div>
       <div class="item-description">
         <div class="item-name">{{displayName}}</div>
@@ -102,10 +102,6 @@ export default {
   color: rgb(155, 155, 155);
   font-size: 0.8em;
   font-weight: 600;
-}
-.item-img > img {
-  width: 100%;
-  height: 100%;
 }
 .item-img {
   height: 130px;

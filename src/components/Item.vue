@@ -5,7 +5,7 @@
       <div class="item-category">{{item.category}}</div>
     </div>
     <div class="item-img" v-show="showImage">
-      <img v-bind:src="item.imageUrl"/>
+      <b-img v-bind:src="item.imageUrl" fluid />
     </div>
     <hr/>
     <div class="item-price-container">
@@ -107,10 +107,6 @@ hr {
 }
 .item-category {
   color: rgb(97, 97, 97);
-}
-.item-img > img {
-  width: 100%;
-  height: 100%;
 }
 .item-img {
   margin: 0 auto;

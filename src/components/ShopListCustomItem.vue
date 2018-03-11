@@ -1,5 +1,5 @@
 <template>
-  <b-card no-body class="mb-1" border-variant="light" align="center">
+  <b-card no-body class="mb-1" border-variant="light">
     <b-card-header class="p-1" header-tag="header" role="tab">
       <b-btn block href="#" v-bind:variant="variant" v-b-toggle="'collapse' + item.id">
         {{item.item}} ({{item.matchingItems.length}})
@@ -7,7 +7,9 @@
     </b-card-header>
     <b-collapse v-bind:id="'collapse' + item.id" accordion="my-accordion" role="tabpanel">
       <b-card-body>
-        <b-btn class="mb-2" v-on:click="remove">Удалить</b-btn>
+        <p class="card-text text-center">
+          <b-btn v-on:click="remove">Удалить</b-btn>
+        </p>
         <p class="card-text" v-if="item.matchingItems.length === 0">
           К сожалению, таких товаров не нашлось...
         </p>
