@@ -4,10 +4,15 @@
     <b-container fluid>
       <b-row>
         <b-col cols="12" md="6" lg="4" class="my-2">
-          <b-form-input type="search" v-model="searchString"
-            placeholder="Поиск..."></b-form-input>
+          <b-form-input type="search" v-model="searchString" placeholder="Поиск..."></b-form-input>
         </b-col>
       </b-row> 
+      <b-row>
+        <b-col cols="12" class="mb-2">
+          <b-form-checkbox-group class="categories" buttons v-model="selectedCategories" :options="categories">
+          </b-form-checkbox-group>
+        </b-col>
+      </b-row>
       <b-row>
         <b-col 
           cols="12" md="6" lg="4" xl="3"
@@ -25,7 +30,7 @@
               base-url="/discounts/" 
               v-bind:number-of-pages="info.numPages" 
               v-model="currentPage"
-              v-show="!searchString"/>
+              v-show="!searchString && !selectedCategories.length"/>
           </div>
         </b-col>
       </b-row>
@@ -46,27 +51,43 @@ export default {
     return {
       info: {},
       items: [],
+      categories: [],
+      selectedCategories: [],
       currentPage: 1,
       searchString: ''
     }
   },
   computed: {
     filteredItems: function() {
-      if(!this.searchString) {
+      if(this.searchString && this.selectedCategories.length) {
+        return this.items.filter(value => {
+          var cat = this.selectedCategories.indexOf(value.category) !== -1;
+          var search = value.name.toLowerCase().indexOf(this.searchString.toLowerCase()) !== -1;
+          return search && cat;
+        });
+      } else if(this.searchString) {
+        return this.items.filter(value => {
+          return value.name.toLowerCase().indexOf(this.searchString.toLowerCase()) !== -1;
+        });
+      } else if(this.selectedCategories.length) {
+        return this.items.filter(value => {
+          return this.selectedCategories.indexOf(value.category) !== -1;
+        });
+      } else {
         var lowerBound = this.info.itemsPerPage * (this.currentPage - 1);
         var upperBound = this.info.itemsPerPage * this.currentPage;
         return this.items.slice(lowerBound, upperBound);
       }
-
-      return this.items.filter(value => {
-        return value.name.toLowerCase().indexOf(this.searchString.toLowerCase()) !== -1;
-      });
     }
   },
   beforeMount: function() {
     this.$http.get('api/sales/info')
       .then(res => {
         this.info = res.data;
+        return this.$http.get('api/sales/categories');
+      })
+      .then(res => {
+        this.categories = res.data;
         return this.$http.get('api/sales');
       })
       .then(res => {
@@ -84,5 +105,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 </style>
