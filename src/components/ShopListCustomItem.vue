@@ -51,11 +51,7 @@ export default {
       this.$emit('addToShopList', item);
     },
     remove: function() {
-      this.$http.delete('api/shoplist/delete?customid=' + this.item.id, { 
-        headers: {
-          'Authorization': localStorage.getItem('auth')
-        }
-      })
+      this.$http.delete('api/shoplist/delete?customid=' + this.item.id)
         .then(res => {
           this.$emit('removeCustomItem', this.index);
         });

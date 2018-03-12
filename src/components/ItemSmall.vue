@@ -16,7 +16,7 @@
       <!-- <div class="item-date">{{item.dateIn}} - {{item.dateOut}}</div> -->
       <!-- <div class="item-cond">{{item.condition}}</div> -->
     </div>
-    <b-btn class="add-to-shoplist-btn" v-on:click="handleBtnClick">{{btnText}}</b-btn>
+    <b-btn class="add-btn" v-on:click="handleBtnClick">{{btnText}}</b-btn>
   </div>
 </template>
 
@@ -71,11 +71,7 @@ export default {
         });
     },
     removeFromShopList: function() {
-      this.$http.delete('api/shoplist/delete?id=' + this.item.id, { 
-        headers: {
-          'Authorization': localStorage.getItem('auth')
-        }
-      })
+      this.$http.delete('api/shoplist/delete?id=' + this.item.id)
         .then(res => {
           this.$emit('removeFromShopList', this.index);
         });
