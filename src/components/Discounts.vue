@@ -9,7 +9,7 @@
       </b-row> 
       <b-row>
         <b-col cols="12" class="mb-2">
-          <b-form-checkbox-group class="categories" buttons v-model="selectedCategories" :options="categories">
+          <b-form-checkbox-group class="categories" buttons v-model="selectedCategories" :options="info.categories">
           </b-form-checkbox-group>
         </b-col>
       </b-row>
@@ -27,7 +27,7 @@
           <div id="pagination">
             <b-pagination-nav
               use-router
-              base-url="/discounts/" 
+              v-bind:base-url="paginationBaseUrl" 
               v-bind:number-of-pages="info.numPages" 
               v-model="currentPage"
               v-show="!searchString && !selectedCategories.length"/>
@@ -51,10 +51,10 @@ export default {
     return {
       info: {},
       items: [],
-      categories: [],
       selectedCategories: [],
       currentPage: 1,
-      searchString: ''
+      searchString: '',
+      paginationBaseUrl: ''
     }
   },
   computed: {
@@ -80,27 +80,35 @@ export default {
       }
     }
   },
+  methods: {
+    loadShop: function(shop) {
+      this.paginationBaseUrl = `/discounts/${shop}/`;
+      this.$http.get(`api/shops/${shop}/info`)
+        .then(res => {
+          this.info = res.data;
+          return this.$http.get(`api/shops/${shop}`);
+        })
+        .then(res => {
+          this.items = res.data;
+          // Ensure page load
+          var page = +this.$route.params['page'];
+          if(page <= 0) {
+            page = 1
+          } else if(page > this.info.numPages) {
+            page = this.info.numPages
+          }
+          this.currentPage = page;
+        });
+    }
+  },
+  watch: {
+    '$route.params.shop': function(shop) {
+      this.loadShop(shop);
+    }
+  },
   beforeMount: function() {
-    this.$http.get('api/sales/info')
-      .then(res => {
-        this.info = res.data;
-        return this.$http.get('api/sales/categories');
-      })
-      .then(res => {
-        this.categories = res.data;
-        return this.$http.get('api/sales');
-      })
-      .then(res => {
-        this.items = res.data;
-        // Ensure page load
-        var page = +this.$route.params.page;
-        if(page <= 0) {
-          page = 1
-        } else if(page > this.info.numPages) {
-          page = this.info.numPages
-        }
-        this.currentPage = page;
-      });
+    var shop = this.$router.currentRoute.params['shop'];
+    this.loadShop(shop);
   }
 }
 </script>
