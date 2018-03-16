@@ -15,9 +15,9 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: '/login', component: Login },
-  { path: '/', redirect: '/discounts/1', component: Discounts },
-  { path: '/discounts', redirect: '/discounts/1', component: Discounts },
-  { path: '/discounts/:page', component: Discounts },
+  { path: '/', redirect: '/discounts/dixy/1' },
+  { path: '/discounts/:shop', redirect: '/discounts/:shop/1' },
+  { path: '/discounts/:shop/:page', component: Discounts },
   { path: '/shoplist', component: ShopList },
 ];
 

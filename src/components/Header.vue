@@ -8,7 +8,13 @@
 
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item to="/discounts">Акции</b-nav-item>
+          <b-nav-item-dropdown text="Акции" right>
+            <b-dropdown-item v-for="shop in shops"
+                             :to="'/discounts/' + shop.alias">
+              {{shop.name}}
+            </b-dropdown-item>
+          </b-nav-item-dropdown>
+          <b-nav-item to="/discounts"></b-nav-item>
           <b-nav-item to="/shoplist">Список покупок</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
@@ -28,7 +34,8 @@
 export default {
   data: function() {
     return {
-      isLoggedIn: false
+      isLoggedIn: false,
+      shops: []
     }
   }, 
   methods: {
@@ -40,7 +47,11 @@ export default {
     }
   },
   beforeMount: function() {
-    this.$http.get('api/shoplist')
+    this.$http.get('api/shops')
+      .then(res => {
+        this.shops = res.data;
+        return this.$http.get('api/shoplist')
+      })
       .then(() => {
         this.isLoggedIn = true;
       })
