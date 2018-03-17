@@ -2,7 +2,7 @@
   <b-card no-body class="mb-1" border-variant="light">
     <b-card-header class="p-1" header-tag="header" role="tab">
       <b-btn block href="#" v-bind:variant="variant" v-b-toggle="'collapse' + item.id">
-        {{item.item}} ({{item.matchingItems.length}})
+        {{item.item}}
       </b-btn>
     </b-card-header>
     <b-collapse v-bind:id="'collapse' + item.id" accordion="my-accordion" role="tabpanel">
@@ -10,18 +10,21 @@
         <p class="card-text text-center">
           <b-btn v-on:click="remove">Удалить</b-btn>
         </p>
-        <p class="card-text" v-if="item.matchingItems.length === 0">
+        <p class="card-text" v-if="variant === 'danger'">
           К сожалению, таких товаров не нашлось...
         </p>
         <p class="card-text">
-        <item-small
-           class="mx-auto mb-2"
-           v-for="matchingItem in item.matchingItems"
-           v-on:addToShopList="addToShopList($event)"
-           v-on:removeCustomItem="remove"
-           btnText="+"
-           v-bind:item="matchingItem">
-        </item-small>
+        <div v-for="(value, key) in item.matchingItems">
+          <h4>{{key}}</h4>
+          <item-small
+             class="mx-auto mb-2"
+             v-for="matchingItem in value"
+             v-on:addToShopList="addToShopList($event)"
+             v-on:removeCustomItem="remove"
+             btnText="+"
+             v-bind:item="matchingItem">
+          </item-small>
+        </div>
         </p>
       </b-card-body>
     </b-collapse>
@@ -39,7 +42,7 @@ export default {
   props: ['index', 'item'],
   computed: {
     variant: function() {
-      if(this.item.matchingItems.length) {
+      if(Object.keys(this.item.matchingItems).length) {
         return 'success'
       } else {
         return 'danger'

@@ -73,7 +73,7 @@ export default {
     removeFromShopList: function() {
       this.$http.delete('api/shoplist/delete?id=' + this.item.id)
         .then(res => {
-          this.$emit('removeFromShopList', this.index);
+          this.$emit('removeFromShopList', this.item, this.index);
         });
     }
   }

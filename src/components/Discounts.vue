@@ -91,7 +91,6 @@ export default {
       this.$http.get(`api/shops/${shop}/info`)
         .then(res => {
           this.info = res.data;
-          console.log(this.info.categories);
           return this.$http.get(`api/shops/${shop}`);
         })
         .then(res => {

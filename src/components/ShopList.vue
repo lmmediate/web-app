@@ -5,19 +5,22 @@
       <b-container fluid>
         <b-row class="mt-2">
           <b-col cols="12" md="6">
-            <b-row v-for="(item, index) in items"
-                   v-bind:key="item.id"
-                   class="mb-2">
-              <b-col>
-                <item-small
+            <div v-for="(value, key) in items">
+              <h4 v-if="value.length">{{key}}</h4>
+              <b-row v-for="(item, index) in value"
+                     v-bind:key="item.id"
+                     class="mb-2">
+                <b-col>
+                  <item-small
                      class="mx-auto"
                      v-bind:item="item" 
                      v-bind:index="index"
                      btnText="-"
                      v-on:removeFromShopList="removeFromShopList($event)" >
-                </item-small>
-              </b-col>
-            </b-row>
+                  </item-small>
+                </b-col>
+              </b-row>
+            </div>
           </b-col>
           <b-col cols="12" md="6" >
             <b-row class="mb-2">
@@ -66,6 +69,7 @@
 import Header from './Header.vue'
 import ShopListCustomItem from './ShopListCustomItem.vue'
 import ItemSmall from './ItemSmall.vue'
+import groupArray from 'group-array'
 
 export default {
   components: {
@@ -82,10 +86,13 @@ export default {
   },
   methods: {
     addToShopList: function(item) {
-      this.items.push(item);
+      if(!this.items[item.shop.name]) {
+        this.items[item.shop.name] = [];
+      }
+      this.items[item.shop.name].push(item);
     },
-    removeFromShopList: function(index) {
-      this.items.splice(index, 1);
+    removeFromShopList: function(item, index) {
+      this.items[item.shop.name].splice(index, 1);
     },
     handleOk: function(evt) {
       evt.preventDefault();
@@ -102,7 +109,10 @@ export default {
       if(this.customItem) {
        this.$http.post('api/shoplist/add?custom=' + this.customItem)
          .then(res => {
-           this.customItems.push(res.data);
+           var customItem = res.data;
+           customItem.matchingItems = groupArray(customItem.matchingItems,
+             'shop.name');
+           this.customItems.push(customItem);
          })
          .catch(error => alert(error));
       }
@@ -116,8 +126,11 @@ export default {
   beforeMount: function() {
     this.$http.get('api/shoplist')
       .then(res => {
-        this.items = res.data.items;
-        this.customItems = res.data.customItems;
+        this.items = groupArray(res.data.items, 'shop.name');
+        this.customItems = res.data.customItems.map(item => {
+          item.matchingItems = groupArray(item.matchingItems, 'shop.name');
+          return item;
+        });
       })
       .catch(error => {
         this.$router.push('/login');
