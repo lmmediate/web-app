@@ -7,9 +7,14 @@
     :header-text-variant="headerVariant.fg"
     :header="shoplist.name">
     <p class="card-text">
-    <b-list-group>
+    <b-list-group class="mb-2">
       <b-list-group-item v-for="item in shoplist.items">
-        {{item.name}}
+        {{item}}
+      </b-list-group-item>
+    </b-list-group>
+    <b-list-group>
+      <b-list-group-item v-for="item in shoplist.customItems">
+        {{item}}
       </b-list-group-item>
     </b-list-group>
     </p>
@@ -41,7 +46,7 @@ export default {
       this.headerVariant.fg = 'white';
     },
     onClick: function() {
-      console.log('CLICK');
+      this.$router.push(`/shoplist/${this.shoplist.id}`);
     },
     openShopList: function() {
       

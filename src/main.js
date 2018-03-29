@@ -7,6 +7,7 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import Discounts from './components/Discounts.vue'
 import ShopList from './components/ShopList.vue'
+import ShopListPreview from './components/ShopListPreview.vue'
 import Login from './components/Login.vue'
 
 Vue.use(BootstrapVue)
@@ -18,7 +19,8 @@ const routes = [
   { path: '/', redirect: '/discounts/dixy/1' },
   { path: '/discounts/:shop', redirect: '/discounts/:shop/1' },
   { path: '/discounts/:shop/:page', component: Discounts },
-  { path: '/shoplist', component: ShopList },
+  { path: '/shoplist', component: ShopListPreview },
+  { path: '/shoplist/:id', component: ShopList }
 ];
 
 const router = new VueRouter({
