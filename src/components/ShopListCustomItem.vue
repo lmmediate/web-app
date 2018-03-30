@@ -2,13 +2,13 @@
   <b-card no-body class="mb-1" border-variant="light">
     <b-card-header class="p-1" header-tag="header" role="tab">
       <b-btn block href="#" v-bind:variant="variant" v-b-toggle="'collapse' + item.id">
-        {{item.item}}
+        {{item.name}}
       </b-btn>
     </b-card-header>
     <b-collapse v-bind:id="'collapse' + item.id" accordion="my-accordion" role="tabpanel">
       <b-card-body>
         <p class="card-text text-center">
-          <b-btn v-on:click="remove">Удалить</b-btn>
+          <b-btn v-on:click="removeCustomItem">Удалить</b-btn>
         </p>
         <p class="card-text" v-if="variant === 'danger'">
           К сожалению, таких товаров не нашлось...
@@ -19,8 +19,8 @@
           <item-small
              class="mx-auto mb-2"
              v-for="matchingItem in value"
-             v-on:addToShopList="addToShopList($event)"
-             v-on:removeCustomItem="remove"
+             v-on:addItem="addItem($event)"
+             v-on:removeCustomItem="removeCustomItem"
              btnText="+"
              v-bind:item="matchingItem">
           </item-small>
@@ -50,14 +50,11 @@ export default {
     }
   },
   methods: {
-    addToShopList: function(item) {
-      this.$emit('addToShopList', item);
+    addItem: function(item) {
+      this.$emit('addItem', item);
     },
-    remove: function() {
-      this.$http.delete('api/shoplist/delete?customid=' + this.item.id)
-        .then(res => {
-          this.$emit('removeCustomItem', this.index);
-        });
+    removeCustomItem: function() {
+      this.$emit('removeCustomItem', this.item);
     }
   }
 }

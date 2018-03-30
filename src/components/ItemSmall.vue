@@ -58,23 +58,16 @@ export default {
   methods: {
     handleBtnClick: function() {
       if(this.btnText === '+') {
-        this.addToShopList();
+        this.addItem();
       } else if(this.btnText === '-') {
-        this.removeFromShopList();
+        this.removeItem();
       }
     },
-    addToShopList: function() {
-      this.$http.post('api/shoplist/add?id=' + this.item.id)
-        .then(res => {
-          this.$emit('addToShopList', this.item);
-          this.$emit('removeCustomItem');
-        });
+    addItem: function() {
+      this.$emit('addItem', this.item);
     },
-    removeFromShopList: function() {
-      this.$http.delete('api/shoplist/delete?id=' + this.item.id)
-        .then(res => {
-          this.$emit('removeFromShopList', this.item, this.index);
-        });
+    removeItem: function() {
+      this.$emit('removeItem', this.item);
     }
   }
 }

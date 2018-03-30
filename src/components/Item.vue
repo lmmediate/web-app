@@ -17,7 +17,7 @@
       <div class="item-date">{{item.dateIn}} - {{item.dateOut}}</div>
       <div class="item-cond">{{parseCondition}}</div>
     </div>
-    <b-btn class="add-btn" v-on:click="addToShopList">+</b-btn>
+    <b-btn class="add-btn" v-on:click="addItem">+</b-btn>
   </div>
 </template>
 
@@ -40,8 +40,9 @@ export default {
         this.maxNameLength = this.item.name.length;
       }
     },
-    addToShopList: function() {
-      this.$http.post('api/shoplist/add?id=' + this.item.id)
+    addItem: function() {
+      // TODO: add shoplist choice
+      this.$http.post(`api/shoplist/1/add?id=${this.item.id}`)
         .catch(error => {
           this.$router.push('/login');
         });

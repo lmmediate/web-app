@@ -1,11 +1,10 @@
 <template>
   <div>
-    <app-header></app-header>
     <div id="shoplist">
       <b-container fluid>
         <b-row class="mt-2">
           <b-col cols="12" md="6">
-            <div v-for="(value, key) in items">
+            <div v-for="(value, key) in shoplist.items">
               <h4 v-if="value.length">{{key}}</h4>
               <b-row v-for="(item, index) in value"
                      v-bind:key="item.id"
@@ -13,10 +12,11 @@
                 <b-col>
                   <item-small
                      class="mx-auto"
+                     v-bind:shoplistId="shoplist.id"
                      v-bind:item="item" 
                      v-bind:index="index"
                      btnText="-"
-                     v-on:removeFromShopList="removeFromShopList($event)" >
+                     v-on:removeItem="removeItem($event)" >
                   </item-small>
                 </b-col>
               </b-row>
@@ -48,9 +48,9 @@
               <b-col >
                 <div role="tablist">
                   <shoplist-custom-item
-                     v-for="(item, index) in customItems"
+                     v-for="(item, index) in shoplist.customItems"
                      v-on:removeCustomItem="removeCustomItem($event)"
-                     v-on:addToShopList="addToShopList($event)"
+                     v-on:addItem="addItem($event)"
                      v-bind:key="item.id"
                      v-bind:index="index"
                      v-bind:item="item" >
@@ -79,20 +79,30 @@ export default {
   },
   data: function() {
     return {
-      items: [],
-      customItems: [],
+      shoplist: {},
       customItem: ''
     }
   },
   methods: {
-    addToShopList: function(item) {
-      if(!this.items[item.shop.name]) {
-        this.items[item.shop.name] = [];
-      }
-      this.items[item.shop.name].push(item);
+    addItem: function(item) {
+      this.$http.post(`api/shoplist/${this.shoplist.id}/add?id=${item.id}`)
+        .then(() => {
+          if(!this.shoplist.items[item.shop.name]) {
+            this.shoplist.items[item.shop.name] = [];
+          } 
+          this.shoplist.items[item.shop.name].push(item);
+          // Bug with an update of reactive property
+          // 'this.shoplist.items[item.shop.name]'
+          this.$forceUpdate();
+        });
     },
-    removeFromShopList: function(item, index) {
-      this.items[item.shop.name].splice(index, 1);
+    removeItem: function(item) {
+      this.$http.delete(`api/shoplist/${this.shoplist.id}/delete?id=${item.id}`)
+        .then(() => {
+          this.shoplist.items[item.shop.name] =
+            this.shoplist.items[item.shop.name].filter(i => i.id !== item.id);
+          this.$forceUpdate();
+        });
     },
     handleOk: function(evt) {
       evt.preventDefault();
@@ -107,32 +117,40 @@ export default {
     addCustomItem: function() {
       // TODO: handle string of whitespaces
       if(this.customItem) {
-       this.$http.post('api/shoplist/add?custom=' + this.customItem)
+        this.$http.post(`api/shoplist/${this.shoplist.id}/add?custom=${this.customItem}`)
          .then(res => {
            var customItem = res.data;
            customItem.matchingItems = groupArray(customItem.matchingItems,
              'shop.name');
-           this.customItems.push(customItem);
+           this.shoplist.customItems.push(customItem);
+           this.$forceUpdate();
          })
-         .catch(error => alert(error));
+         .catch(error => console.log(error));
       }
       this.customItem = '';
       this.$refs.modal.hide();
     },
-    removeCustomItem: function(index) {
-      this.customItems.splice(index, 1);
+    removeCustomItem: function(item) {
+      this.$http.delete(`api/shoplist/${this.shoplist.id}/delete?customid=${item.id}`)
+        .then(() => {
+          this.shoplist.customItems =
+            this.shoplist.customItems.filter(i => i.id !== item.id);
+          this.$forceUpdate();
+        });
     }
   },
-  beforeMount: function() {
-    this.$http.get('api/shoplist')
+  created: function() {
+    this.$http.get(`api/shoplist/${this.$route.params['id']}`)
       .then(res => {
-        this.items = groupArray(res.data.items, 'shop.name');
-        this.customItems = res.data.customItems.map(item => {
+        this.shoplist = res.data;
+        this.shoplist.items = groupArray(this.shoplist.items, 'shop.name');
+        this.shoplist.customItems = this.shoplist.customItems.map(item => {
           item.matchingItems = groupArray(item.matchingItems, 'shop.name');
           return item;
         });
       })
       .catch(error => {
+        console.log(error);
         this.$router.push('/login');
       });
   }

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <app-header></app-header>
     <b-container fluid>
       <b-row>
         <b-col cols="12" md="6" lg="4" class="my-2">

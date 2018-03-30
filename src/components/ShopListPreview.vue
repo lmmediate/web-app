@@ -21,37 +21,20 @@ export default {
   },
   data: function() {
     return {
-      shoplists: [{
-        name: 'Завтрак',
-        items: ['ССокссссссссссссссссссссссссссссссссссссссссссоксссссссссссссссссссссссссссссссссссссссссс', 'Вода', 'Молоко'] 
-      },{
-        name: 'Завтрак',
-        items: ['Сок', 'Вода', 'Молоко'] 
-      },{
-        name: 'Завтрак',
-        items: ['Сок', 'Вода', 'Молоко'] 
-      },{
-        name: 'Завтрак',
-        items: ['Сок', 'Вода', 'Молоко'] 
-      },{
-        name: 'Завтрак',
-        items: ['Сок', 'Вода', 'Молоко'] 
-      },{
-        name: 'Завтрак',
-        items: ['Сок', 'Вода', 'Молоко'] 
-      },{
-        name: 'Завтрак',
-        items: ['Сок', 'Вода', 'Молоко'] 
-      },{
-        name: 'Завтрак',
-        items: ['Сок', 'Вода', 'Молоко'] 
-      },{
-        name: 'Завтрак',
-        items: ['Сок', 'Вода', 'Молоко'] 
-      }]
+      shoplists: []
     }
   },
   methods: {
+
+  },
+  created: function() {
+    this.$http.get('api/shoplist?preview=true')
+      .then(res => {
+        this.shoplists = res.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 }
 </script>
