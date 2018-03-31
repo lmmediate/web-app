@@ -8,13 +8,21 @@
     :header="shoplist.name">
     <p class="card-text">
     <b-list-group class="mb-2">
-      <b-list-group-item v-for="item in shoplist.items">
+      <b-list-group-item v-for="item in itemsPreview" variant="warning">
         {{item}}
+      </b-list-group-item>
+      <b-list-group-item
+        v-show="maxItemsCount < shoplist.items.length" variant="warning">
+        ...
       </b-list-group-item>
     </b-list-group>
     <b-list-group>
-      <b-list-group-item v-for="item in shoplist.customItems">
+      <b-list-group-item v-for="item in customItemsPreview" variant="info">
         {{item}}
+      </b-list-group-item>
+      <b-list-group-item
+        v-show="maxItemsCount < shoplist.customItems.length" variant="info">
+        ...
       </b-list-group-item>
     </b-list-group>
     </p>
@@ -30,11 +38,17 @@ export default {
         bg: 'secondary',
         fg: 'white'
       },
-      maxNameLength: 40
+      maxNameLength: 40,
+      maxItemsCount: 3
     }
   },
   computed: {
-    // TODO: displayName
+    itemsPreview: function() {
+      return this.getPreview(this.shoplist.items);
+    },
+    customItemsPreview: function() {
+      return this.getPreview(this.shoplist.customItems);
+    }
   },
   methods: {
     onMouseOver: function() {
@@ -48,8 +62,16 @@ export default {
     onClick: function() {
       this.$router.push(`/shoplist/${this.shoplist.id}`);
     },
-    openShopList: function() {
-      
+    getPreview: function(arr) {
+      return arr 
+        .slice(0, 3)
+        .map(i => {
+          if(i.length <= this.maxNameLength){
+            return i;
+          } else {
+            return i.slice(0, this.maxNameLength) + '...';
+          }
+        });
     }
   }
 }

@@ -28,7 +28,7 @@ export default {
 
   },
   created: function() {
-    this.$http.get('api/shoplist?preview=true')
+    this.$http.get('api/shoplist?mode=preview')
       .then(res => {
         this.shoplists = res.data;
       })
