@@ -1,6 +1,6 @@
 <template>
   <b-card no-body class="mb-1" border-variant="light">
-    <b-card-header class="p-1" header-tag="header" role="tab">
+    <b-card-header class="p-1" :header-bg-variant="variant" header-tag="header" role="tab">
       <b-btn block href="#" v-bind:variant="variant" v-b-toggle="'collapse' + item.id">
         {{item.name}}
       </b-btn>
@@ -15,7 +15,7 @@
         </p>
         <p class="card-text">
         <div v-for="(value, key) in item.matchingItems">
-          <h4>{{key}}</h4>
+          <h4 class="text-center">{{key}}</h4>
           <item-small
              class="mx-auto mb-2"
              v-for="matchingItem in value"

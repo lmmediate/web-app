@@ -5,7 +5,7 @@
         <b-row class="mt-2">
           <b-col cols="12" md="6">
             <div v-for="(value, key) in shoplist.items">
-              <h4 v-if="value.length">{{key}}</h4>
+              <h4 class="text-center" v-if="value.length">{{key}}</h4>
               <b-row v-for="(item, index) in value"
                      v-bind:key="item.id"
                      class="mb-2">
@@ -24,19 +24,6 @@
           </b-col>
           <b-col cols="12" md="6" >
             <b-row class="mb-2">
-              <b-col>
-                <b-form inline @submit.stop.prevent="addCustomItem">
-                  <b-form-input 
-                         class="mr-2"
-                         type="text"
-                         v-model="customItem"
-                         placeholder="Название товара">
-                  </b-form-input>
-                  <b-btn type="submit">Добавить</b-btn>
-                </b-form>
-              </b-col>
-            </b-row>
-            <b-row class="mb-2">
               <b-col >
                 <div role="tablist">
                   <shoplist-custom-item
@@ -48,6 +35,19 @@
                      v-bind:item="item" >
                   </shoplist-custom-item>
                 </div>
+              </b-col>
+            </b-row>
+            <b-row class="mb-2">
+              <b-col>
+                <b-form inline @submit.stop.prevent="addCustomItem">
+                  <b-form-input 
+                         class="mr-2 mb-2 mb-sm-0"
+                         type="text"
+                         v-model="customItem"
+                         placeholder="Название товара">
+                  </b-form-input>
+                  <b-btn type="submit">Добавить</b-btn>
+                </b-form>
               </b-col>
             </b-row>
           </b-col>
