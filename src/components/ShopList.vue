@@ -25,23 +25,15 @@
           <b-col cols="12" md="6" >
             <b-row class="mb-2">
               <b-col>
-                <b-btn v-b-modal.add-custom>Добавить</b-btn>
-                <b-modal
-                     ref="modal"
-                     id="add-custom"
-                     title="Добавить в список покупок"
-                     v-on:shown="focusInput"
-                     v-on:ok="handleOk"
-                     v-on:cancel="handleCancel">
-                  <b-form v-on:submit.stop.prevent="addCustomItem">
-                    <b-form-input 
-                       ref="input"
-                       type="text"
-                       v-model="customItem"
-                       placeholder="Название товара">
-                    </b-form-input>
-                  </b-form>
-                </b-modal>
+                <b-form inline @submit.stop.prevent="addCustomItem">
+                  <b-form-input 
+                         class="mr-2"
+                         type="text"
+                         v-model="customItem"
+                         placeholder="Название товара">
+                  </b-form-input>
+                  <b-btn type="submit">Добавить</b-btn>
+                </b-form>
               </b-col>
             </b-row>
             <b-row class="mb-2">
@@ -104,16 +96,6 @@ export default {
           this.$forceUpdate();
         });
     },
-    handleOk: function(evt) {
-      evt.preventDefault();
-      this.addCustomItem();
-    },
-    handleCancel: function(evt) {
-      this.customItem = '';
-    },
-    focusInput: function(evt) {
-      this.$refs.input.focus();
-    },
     addCustomItem: function() {
       // TODO: handle string of whitespaces
       if(this.customItem) {
@@ -128,7 +110,6 @@ export default {
          .catch(error => console.log(error));
       }
       this.customItem = '';
-      this.$refs.modal.hide();
     },
     removeCustomItem: function(item) {
       this.$http.delete(`api/shoplist/${this.shoplist.id}/delete?customid=${item.id}`)
