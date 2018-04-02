@@ -8,6 +8,14 @@
           <shoplist-card :shoplist="shoplist"></shoplist-card>
         </b-col>
       </b-row>
+      <b-row class="mb-2">
+        <b-col>
+          <b-btn variant="info" @click="newShopList()">Добавить</b-btn> 
+        </b-col>
+        <b-modal>
+          
+        </b-modal>
+      </b-row>
     </b-container>
   </div>
 </template>
@@ -25,7 +33,9 @@ export default {
     }
   },
   methods: {
-
+    newShopList: function() {
+      alert('new shoplist!');
+    }
   },
   created: function() {
     this.$http.get('api/shoplist?mode=preview')

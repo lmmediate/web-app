@@ -16,7 +16,7 @@
       <!-- <div class="item-date">{{item.dateIn}} - {{item.dateOut}}</div> -->
       <!-- <div class="item-cond">{{item.condition}}</div> -->
     </div>
-    <b-btn class="add-btn" v-on:click="handleBtnClick">{{btnText}}</b-btn>
+    <b-btn variant="info" class="add-btn" v-on:click="handleBtnClick">{{btnText}}</b-btn>
   </div>
 </template>
 
@@ -88,7 +88,7 @@ export default {
   flex-direction: row;
 }
 .item-category {
-  color: rgb(155, 155, 155);
+  color: #757575;
   font-size: 0.8em;
   font-weight: 600;
 }

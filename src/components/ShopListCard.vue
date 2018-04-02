@@ -8,20 +8,20 @@
     :header="shoplist.name">
     <p class="card-text">
     <b-list-group class="mb-2">
-      <b-list-group-item v-for="item in itemsPreview" variant="warning">
+      <b-list-group-item v-for="item in itemsPreview" variant="light">
         {{item}}
       </b-list-group-item>
       <b-list-group-item
-        v-show="maxItemsCount < shoplist.items.length" variant="warning">
+        v-show="maxItemsCount < shoplist.items.length" variant="light">
         ...
       </b-list-group-item>
     </b-list-group>
     <b-list-group>
-      <b-list-group-item v-for="item in customItemsPreview" variant="info">
+      <b-list-group-item v-for="item in customItemsPreview" variant="light">
         {{item}}
       </b-list-group-item>
       <b-list-group-item
-        v-show="maxItemsCount < shoplist.customItems.length" variant="info">
+        v-show="maxItemsCount < shoplist.customItems.length" variant="light">
         ...
       </b-list-group-item>
     </b-list-group>
@@ -35,7 +35,7 @@ export default {
   data: function() {
     return {
       headerVariant: {
-        bg: 'secondary',
+        bg: 'primary',
         fg: 'white'
       },
       maxNameLength: 40,
@@ -52,12 +52,12 @@ export default {
   },
   methods: {
     onMouseOver: function() {
-      this.headerVariant.bg = 'light';
-      this.headerVariant.fg = 'black';
+      this.headerVariant.fg = 'white';
+      this.headerVariant.bg = 'dark';
     },
     onMouseOut: function() {
-      this.headerVariant.bg = 'secondary';
       this.headerVariant.fg = 'white';
+      this.headerVariant.bg = 'primary';
     },
     onClick: function() {
       this.$router.push(`/shoplist/${this.shoplist.id}`);

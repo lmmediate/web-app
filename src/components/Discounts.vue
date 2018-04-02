@@ -1,14 +1,14 @@
 <template>
   <div>
     <b-container fluid>
-      <b-row>
-        <b-col cols="12" md="6" lg="4" class="my-2">
+      <b-row class="mt-2">
+        <b-col cols="12" md="6" lg="4">
           <b-form-input type="search" v-model="searchString" placeholder="Поиск..."></b-form-input>
         </b-col>
       </b-row> 
       <b-row>
         <b-col cols="12" class="mb-2">
-          <b-form-checkbox-group buttons v-model="selectedCategories" >
+          <b-form-checkbox-group buttons button-variant="primary" v-model="selectedCategories" >
             <b-form-checkbox class="cat-btn m-1"
                              v-for="category in info.categories"
                              v-bind:value="category">

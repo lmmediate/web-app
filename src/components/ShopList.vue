@@ -46,7 +46,7 @@
                          v-model="customItem"
                          placeholder="Название товара">
                   </b-form-input>
-                  <b-btn type="submit">Добавить</b-btn>
+                  <b-btn variant="info" type="submit">Добавить</b-btn>
                 </b-form>
               </b-col>
             </b-row>

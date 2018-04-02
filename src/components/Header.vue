@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <b-navbar toggleable="md" type="dark" variant="dark">
+    <b-navbar toggleable="md" type="dark" variant="primary">
 
       <b-navbar-brand to="/">ShopDiscounts</b-navbar-brand>
 

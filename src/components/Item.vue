@@ -17,7 +17,7 @@
       <div class="item-date">{{item.dateIn}} - {{item.dateOut}}</div>
       <div class="item-cond">{{parseCondition}}</div>
     </div>
-    <b-btn class="add-btn" v-on:click="addItem">+</b-btn>
+    <b-btn variant="info" class="add-btn" v-on:click="addItem">+</b-btn>
   </div>
 </template>
 
@@ -107,7 +107,7 @@ hr {
   margin-bottom: 5px;
 }
 .item-category {
-  color: rgb(97, 97, 97);
+  color: #757575;
 }
 .item-img {
   margin: 0 auto;
