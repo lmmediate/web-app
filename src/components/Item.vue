@@ -17,13 +17,28 @@
       <div class="item-date">{{item.dateIn}} - {{item.dateOut}}</div>
       <div class="item-cond">{{parseCondition}}</div>
     </div>
-    <b-btn variant="info" class="add-btn" v-on:click="addItem">+</b-btn>
+    <b-btn variant="info" class="add-btn" 
+                          v-b-modal="'modal' + item.id">
+      +
+    </b-btn>
+    <b-modal ref="modal" 
+             hide-footer
+             :id="'modal' + item.id" 
+             title="Добавить в список покупок">
+      <b-list-group>
+        <b-list-group-item button 
+             v-for="shoplist in shoplists"
+             @click="addItem(shoplist.id)">
+          {{shoplist.name}}
+        </b-list-group-item>
+      </b-list-group>
+    </b-modal>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['item'],
+  props: ['item', 'shoplists'],
   data: function() {
     return {
       maxNameLength: 80,
@@ -40,12 +55,13 @@ export default {
         this.maxNameLength = this.item.name.length;
       }
     },
-    addItem: function() {
-      // TODO: add shoplist choice
-      this.$http.post(`api/shoplist/1/additem?id=${this.item.id}`)
+    addItem: function(shoplistId) {
+      this.$http.post(`api/shoplist/${shoplistId}/additem?id=${this.item.id}`)
         .catch(error => {
+          console.log(error);
           this.$router.push('/login');
         });
+      this.$refs.modal.hide();
     }
   },
   computed: {

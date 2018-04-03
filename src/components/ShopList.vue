@@ -52,6 +52,14 @@
             </b-row>
           </b-col>
         </b-row>
+        <hr/>
+        <b-row class="mb-2">
+          <b-col class="text-center">
+            <b-btn variant="info" @click="deleteShopList">
+              Удалить список покупок
+            </b-btn>
+          </b-col>
+        </b-row>
       </b-container>
     </div>
   </div>
@@ -117,6 +125,12 @@ export default {
           this.shoplist.customItems =
             this.shoplist.customItems.filter(i => i.id !== item.id);
           this.$forceUpdate();
+        });
+    },
+    deleteShopList: function() {
+      this.$http.delete(`api/shoplist/${this.shoplist.id}`)
+        .then(() => {
+          this.$router.push('/shoplist');
         });
     }
   },

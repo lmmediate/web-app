@@ -50,13 +50,17 @@ export default {
     this.$http.get('api/shops')
       .then(res => {
         this.shops = res.data;
-        return this.$http.get('api/shoplist')
       })
       .then(() => {
-        this.isLoggedIn = true;
+        // TODO: Make up another check login way
+        if(localStorage.getItem('auth')) {
+          this.isLoggedIn = true;
+        } else {
+          this.isLoggedIn = false; 
+        }
       })
-      .catch(() => {
-        this.isLoggedIn = false; 
+      .catch(error => {
+        console.log(error);
       });
   }
 }

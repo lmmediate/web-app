@@ -23,7 +23,8 @@
           class="mb-2"
           v-for="item in filteredItems" 
           v-bind:key="item.id">
-            <item class="mx-auto" v-bind:item="item"></item>
+            <item :shoplists="shoplists" class="mx-auto"
+              v-bind:item="item"></item>
         </b-col>
       </b-row>
       <b-row>
@@ -58,7 +59,8 @@ export default {
       selectedCategories: [],
       currentPage: 1,
       searchString: '',
-      paginationBaseUrl: ''
+      paginationBaseUrl: '',
+      shoplists: []
     }
   },
   computed: {
@@ -103,6 +105,13 @@ export default {
           }
           this.currentPage = page;
         });
+    },
+    getShopLists: function() {
+      this.$http.get('api/shoplist')
+        .then(res => {
+          console.log(res.data);
+          this.shoplists = res.data
+        });
     }
   },
   watch: {
@@ -113,6 +122,10 @@ export default {
   beforeMount: function() {
     var shop = this.$router.currentRoute.params['shop'];
     this.loadShop(shop);
+    // TODO: Make up another check login way
+    if(localStorage.getItem('auth')) {
+      this.getShopLists();
+    }
   }
 }
 </script>
