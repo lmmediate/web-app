@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     addItem: function(item) {
-      this.$http.post(`api/shoplist/${this.shoplist.id}/add?id=${item.id}`)
+      this.$http.post(`api/shoplist/${this.shoplist.id}/additem?id=${item.id}`)
         .then(() => {
           if(!this.shoplist.items[item.shop.name]) {
             this.shoplist.items[item.shop.name] = [];
@@ -89,7 +89,7 @@ export default {
         });
     },
     removeItem: function(item) {
-      this.$http.delete(`api/shoplist/${this.shoplist.id}/delete?id=${item.id}`)
+      this.$http.delete(`api/shoplist/${this.shoplist.id}/deleteitem?id=${item.id}`)
         .then(() => {
           this.shoplist.items[item.shop.name] =
             this.shoplist.items[item.shop.name].filter(i => i.id !== item.id);

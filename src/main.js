@@ -30,7 +30,7 @@ const router = new VueRouter({
 // 'http://46.17.44.125:8080',
 // 'http://localhost:8080',
  
-Vue.http.options.root = 'http://localhost:8080'; 
+Vue.http.options.root = 'http://gcsales.ru'; 
 Vue.http.interceptors.push(function(req, next) {
   var token = localStorage.getItem('auth');
   req.headers.set('Authorization', token);

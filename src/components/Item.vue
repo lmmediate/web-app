@@ -42,7 +42,7 @@ export default {
     },
     addItem: function() {
       // TODO: add shoplist choice
-      this.$http.post(`api/shoplist/1/add?id=${this.item.id}`)
+      this.$http.post(`api/shoplist/1/additem?id=${this.item.id}`)
         .catch(error => {
           this.$router.push('/login');
         });
