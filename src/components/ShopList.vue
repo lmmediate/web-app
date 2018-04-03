@@ -99,7 +99,7 @@ export default {
     addCustomItem: function() {
       // TODO: handle string of whitespaces
       if(this.customItem) {
-        this.$http.post(`api/shoplist/${this.shoplist.id}/add?custom=${this.customItem}`)
+        this.$http.post(`api/shoplist/${this.shoplist.id}/additem?custom=${this.customItem}`)
          .then(res => {
            var customItem = res.data;
            customItem.matchingItems = groupArray(customItem.matchingItems,
@@ -112,7 +112,7 @@ export default {
       this.customItem = '';
     },
     removeCustomItem: function(item) {
-      this.$http.delete(`api/shoplist/${this.shoplist.id}/delete?customid=${item.id}`)
+      this.$http.delete(`api/shoplist/${this.shoplist.id}/deleteitem?customid=${item.id}`)
         .then(() => {
           this.shoplist.customItems =
             this.shoplist.customItems.filter(i => i.id !== item.id);
