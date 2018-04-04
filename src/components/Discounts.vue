@@ -8,12 +8,10 @@
       </b-row> 
       <b-row>
         <b-col cols="12" class="mb-2">
-          <b-form-checkbox-group buttons button-variant="primary" v-model="selectedCategories" >
-            <b-form-checkbox class="cat-btn m-1"
-                             v-for="category in info.categories"
-                             v-bind:value="category">
-              {{category}}
-            </b-form-checkbox>
+          <b-form-checkbox-group buttons 
+                         button-variant="primary"
+                         v-model="selectedCategories"
+                         :options="info.categories">
           </b-form-checkbox-group>
         </b-col>
       </b-row>
@@ -109,7 +107,6 @@ export default {
     getShopLists: function() {
       this.$http.get('api/shoplist')
         .then(res => {
-          console.log(res.data);
           this.shoplists = res.data
         });
     }
@@ -130,13 +127,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.cat-btn {
-  border-radius: 0.25rem;
-}
-.btn-group {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-</style>

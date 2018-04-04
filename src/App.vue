@@ -17,12 +17,7 @@ export default {
 </script>
 
 <style lang="scss">
-  $body-bg: rgb(242, 242, 242);  // find these variables in docs and in Bootstrap _variables.scss
-  $primary: #607D8B;
-  $dark: #455A64;
-  $light: #CFD8DC;
-  $info: #448AFF;
-  @import "~bootstrap/scss/bootstrap";  // import complete bootstrap.scss source from node_modules using ~ alias
+  @import './assets/scss/app.scss';
 </style>
 
   <!-- $secondary:     ; -->
