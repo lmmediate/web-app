@@ -20,13 +20,3 @@ export default {
   @import './assets/scss/app.scss';
 </style>
 
-  <!-- $secondary:     ; -->
-  <!-- $success:       $green !default; -->
-  <!-- $warning:       $yellow !default; -->
-  <!-- $danger:        $red !default; -->
-
-<!-- <style> -->
-<!-- body { -->
-<!--   background-color: rgb(242, 242, 242); -->
-<!-- } -->
-<!-- </style> -->

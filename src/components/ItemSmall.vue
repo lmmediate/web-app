@@ -73,45 +73,6 @@ export default {
 }
 </script>
 
-<style scoped>
-.item {
-  padding: 5px;
-  background-color: white;
-  box-shadow: 3px 3px 15px -5px rgba(0,0,0,0.5);
-  width: 90%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.item-main-info {
-  display: flex;
-  flex-direction: row;
-}
-.item-category {
-  color: #757575;
-  font-size: 0.8em;
-  font-weight: 600;
-}
-.item-img {
-  height: 130px;
-  width: 130px;
-  margin-right: 5px;
-}
-.item-conditions {
-  align-self: flex-end;
-}
-.item-old-price {
-  color: rgb(97, 97, 97);
-  text-decoration: line-through;
-  font-size: 0.8em;
-}
-.item-new-price {
-  font-weight: 600;
-}
-.item-discount {
-  padding: 2px;
-  border-radius: 5px;
-  background-color: rgb(244, 209, 66);
-  display: inline-block;
-}
+<style scoped lang="scss">
+  @import '../assets/scss/item-small';
 </style>
