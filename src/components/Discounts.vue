@@ -1,28 +1,31 @@
 <template>
   <div>
     <b-container fluid>
+      <!-- <b-row class="mt-2"> -->
+      <!--   <b-col cols="12" md="6" lg="4"> -->
+      <!--     <b-form-input type="search" v-model="searchString" placeholder="Поиск..."></b-form-input> -->
+      <!--   </b-col> -->
+      <!-- </b-row> --> 
       <b-row class="mt-2">
-        <b-col cols="12" md="6" lg="4">
-          <b-form-input type="search" v-model="searchString" placeholder="Поиск..."></b-form-input>
-        </b-col>
-      </b-row> 
-      <b-row>
         <b-col cols="12" class="mb-2">
-          <b-form-checkbox-group buttons 
-                         button-variant="primary"
-                         v-model="selectedCategories"
-                         :options="info.categories">
-          </b-form-checkbox-group>
+          Category: {{activeCategory}}
+          <b-form-radio-group buttons 
+                         button-variant="outline-primary"
+                         v-model="activeCategory">
+            <b-form-radio value="">Все товары</b-form-radio>
+            <b-form-radio v-for="category in categories"
+                          :value="category">
+              {{category}}
+            </b-form-radio>
+          </b-form-radio-group>
         </b-col>
       </b-row>
-      <b-row>
-        <b-col 
+      <b-row> <b-col 
           cols="12" md="6" lg="4" xl="3"
           class="mb-2"
-          v-for="item in filteredItems" 
-          v-bind:key="item.id">
-            <item :shoplists="shoplists" class="mx-auto"
-              v-bind:item="item"></item>
+          v-for="item in items" 
+          :key="item.id">
+          <item :shoplists="shoplists" :item="item" class="mx-auto"></item>
         </b-col>
       </b-row>
       <b-row>
@@ -30,10 +33,9 @@
           <div id="pagination">
             <b-pagination-nav
               use-router
-              v-bind:base-url="paginationBaseUrl" 
-              v-bind:number-of-pages="info.numPages" 
-              v-model="currentPage"
-              v-show="!searchString && !selectedCategories.length"/>
+              :base-url="paginationBaseUrl" 
+              :number-of-pages="numPages" 
+              v-model="currentPage">
           </div>
         </b-col>
       </b-row>
@@ -52,57 +54,38 @@ export default {
   },
   data: function() {
     return {
-      info: {},
+      categories: [],
       items: [],
-      selectedCategories: [],
+      activeCategory: '',
       currentPage: 1,
       searchString: '',
       paginationBaseUrl: '',
       shoplists: []
     }
   },
-  computed: {
-    filteredItems: function() {
-      if(this.searchString && this.selectedCategories.length) {
-        return this.items.filter(value => {
-          var cat = this.selectedCategories.indexOf(value.category) !== -1;
-          var search = value.name.toLowerCase().indexOf(this.searchString.toLowerCase()) !== -1;
-          return search && cat;
-        });
-      } else if(this.searchString) {
-        return this.items.filter(value => {
-          return value.name.toLowerCase().indexOf(this.searchString.toLowerCase()) !== -1;
-        });
-      } else if(this.selectedCategories.length) {
-        return this.items.filter(value => {
-          return this.selectedCategories.indexOf(value.category) !== -1;
-        });
-      } else {
-        var lowerBound = this.info.itemsPerPage * (this.currentPage - 1);
-        var upperBound = this.info.itemsPerPage * this.currentPage;
-        return this.items.slice(lowerBound, upperBound);
-      }
-    }
-  },
   methods: {
-    loadShop: function(shop) {
-      this.paginationBaseUrl = `/discounts/${shop}/`;
-      this.$http.get(`api/shops/${shop}/info`)
+    downloadItems: function(shopId, page, category) {
+      page = page || 1;
+      category = category || '';
+      this.$http.get(`api/shops/${shopId}?category=${category}&page=${page}`)
         .then(res => {
-          this.info = res.data;
-          return this.$http.get(`api/shops/${shop}`);
-        })
-        .then(res => {
-          this.items = res.data;
-          // Ensure page load
-          var page = +this.$route.params['page'];
-          if(page <= 0) {
-            page = 1
-          } else if(page > this.info.numPages) {
-            page = this.info.numPages
+          this.items = res.data.rows;
+          if(category) {
+            this.paginationBaseUrl = `/shop/${shopId}/`;
           }
+          else {
+            this.paginationBaseUrl = `/shop/${shopId}/`;
+          }
+          this.numPages = res.data.numPages;
           this.currentPage = page;
         });
+    },
+    downloadShop: function(shopId) {
+      this.$http.get(`api/shops/${shopId}/categories`)
+        .then(res => {
+          this.categories = res.data;
+        });
+      this.downloadItems(shopId);
     },
     getShopLists: function() {
       this.$http.get('api/shoplist')
@@ -112,13 +95,19 @@ export default {
     }
   },
   watch: {
-    '$route.params.shop': function(shop) {
-      this.loadShop(shop);
+    '$route.params.shopId': function(shopId) {
+      this.downloadShop(shopId);
+    },
+    'currentPage': function(currentPage) {
+      this.downloadItems(this.$route.params.shopId, currentPage);
+    },
+    'activeCategory' : function(activeCategory) {
+      this.downloadItems(this.$route.params.shopId, 1, activeCategory);
     }
   },
   beforeMount: function() {
-    var shop = this.$router.currentRoute.params['shop'];
-    this.loadShop(shop);
+    var shopId = this.$router.currentRoute.params['shopId'];
+    this.downloadShop(shopId);
     // TODO: Make up another check login way
     if(localStorage.getItem('auth')) {
       this.getShopLists();

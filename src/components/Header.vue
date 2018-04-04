@@ -10,7 +10,7 @@
         <b-navbar-nav>
           <b-nav-item-dropdown text="Акции" right>
             <b-dropdown-item v-for="shop in shops"
-                             :to="'/discounts/' + shop.alias">
+                             :to="'/shop/' + shop.id">
               {{shop.name}}
             </b-dropdown-item>
           </b-nav-item-dropdown>
