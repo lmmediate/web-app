@@ -14,11 +14,21 @@ Vue.use(BootstrapVue)
 Vue.use(VueResource);
 Vue.use(VueRouter);
 
+function passProps(route) {
+  return {
+    shopId: route.query.shop,
+    currentCategory: route.query.category,
+    currentPage: route.query.page 
+  }
+}
+
 const routes = [
   { path: '/login', component: Login },
-  { path: '/', redirect: '/shop/1/1' },
-  { path: '/shop/:shopId', redirect: '/shop/:shopId/1' },
-  { path: '/shop/:shopId/:page', component: Discounts },
+  { path: '/', beforeEnter: (to, from, next) => {
+    // Custom redirect function
+    next({ path: '/sales', query: { shop: 1, page: 1 } });
+  }},
+  { path: '/sales', component: Discounts, props: passProps  },
   { path: '/shoplist', component: ShopListPreview },
   { path: '/shoplist/:id', component: ShopList }
 ];
