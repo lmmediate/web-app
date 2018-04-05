@@ -55,6 +55,7 @@
         <hr/>
         <b-row class="mb-2">
           <b-col class="text-center">
+            <h4>Итого: {{totalSum}}</h4>
             <b-btn variant="info" @click="deleteShopList">
               Удалить список покупок
             </b-btn>
@@ -81,6 +82,20 @@ export default {
     return {
       shoplist: {},
       customItem: ''
+    }
+  },
+  computed: {
+    totalSum: function() {
+      var total = 0;
+      var items = this.shoplist.items;
+      for (var shop in items) {
+        if (items.hasOwnProperty(shop)) {
+          items[shop].forEach(a => {
+            total += a.newPrice;
+          })
+        }
+      }
+      return total.toFixed(2) + ' \u20BD';
     }
   },
   methods: {
