@@ -29,7 +29,7 @@
                use-router
                :link-gen="linkGen"
                :number-of-pages="numPages" 
-               v-model="currentPage">
+               v-model="currentPage" />
           </div>
         </b-col>
       </b-row>
@@ -51,7 +51,8 @@ export default {
     return {
       categories: [],
       items: [],
-      shoplists: []
+      shoplists: [],
+      numPages: 0
     }
   },
   methods: {
