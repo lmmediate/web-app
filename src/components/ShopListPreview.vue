@@ -1,6 +1,10 @@
 <template>
   <div>
-    <b-container fluid>
+    <div v-if="!user.loggedIn" class="m-2">
+      Вы не авторизваны в системе.
+      <router-link to="/login">Войти</router-link>
+    </div>
+    <b-container fluid v-if="user.loggedIn">
       <b-row class="mt-2">
         <b-col cols="12" md="6" lg="4" xl="3"
           class="mb-2" 
@@ -35,6 +39,7 @@
 
 <script>
 import ShopListCard from './ShopListCard.vue'
+import auth from '../auth'
 
 export default {
   components: {
@@ -43,7 +48,8 @@ export default {
   data: function() {
     return {
       shoplists: [],
-      shoplist: ''
+      shoplist: '',
+      user: auth.user
     }
   },
   methods: {
@@ -68,14 +74,16 @@ export default {
     }
   },
   created: function() {
-    this.$http.get('api/shoplist?mode=preview')
-      .then(res => {
-        this.shoplists = res.data;
-      })
-      .catch(error => {
-        this.$router.push('/login');
-        console.log(error);
-      });
+    if(this.user.loggedIn) {
+      console.log('get shoplists');
+      this.$http.get('api/shoplist?mode=preview')
+        .then(res => {
+          this.shoplists = res.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }
 }
 </script>

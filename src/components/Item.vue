@@ -25,7 +25,11 @@
              hide-footer
              :id="'modal' + item.id" 
              title="Добавить в список покупок">
-      <b-list-group>
+      <div v-if="!user.loggedIn">
+        Авторизуйтесь, чтобы добавить в список покупок.
+        <router-link to="/login">Войти</router-link>
+      </div>
+      <b-list-group v-if="user.loggedIn">
         <b-list-group-item button 
              v-for="shoplist in shoplists"
              @click="addItem(shoplist.id)">
@@ -37,12 +41,15 @@
 </template>
 
 <script>
+import auth from '../auth'
+
 export default {
   props: ['item', 'shoplists'],
   data: function() {
     return {
       maxNameLength: 80,
-      showImage: true
+      showImage: true,
+      user: auth.user
     };
   },
   methods: {
@@ -59,7 +66,6 @@ export default {
       this.$http.post(`api/shoplist/${shoplistId}/additem?id=${this.item.id}`)
         .catch(error => {
           console.log(error);
-          this.$router.push('/login');
         });
       this.$refs.modal.hide();
     }

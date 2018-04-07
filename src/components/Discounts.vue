@@ -40,6 +40,7 @@
 <script>
 import Header from './Header.vue'
 import Item from './Item.vue'
+import auth from '../auth'
 
 export default {
   components: {
@@ -52,7 +53,8 @@ export default {
       categories: [],
       items: [],
       shoplists: [],
-      numPages: 0
+      numPages: 0,
+      user: auth.user
     }
   },
   methods: {
@@ -117,9 +119,7 @@ export default {
   },
   created: function() {
     this.downloadShop();
-    console.log(this.currentPage);
-    // TODO: Make up another check login way
-    if(localStorage.getItem('auth')) {
+    if(this.user.loggedIn) {
       this.getShopLists();
     }
   }
