@@ -5,7 +5,7 @@
         <b-form-row>
           <b-col class="text-center mb-2"
                  cols="8" md="4" offset="2" offset-md="4">
-            <h4>Вход</h4>
+            <h4>Регистрация</h4>
           </b-col>
         </b-form-row>
         <b-form-row v-if="error">
@@ -31,22 +31,11 @@
         </b-form-row>
         <b-form-row>
           <b-col cols="8" md="4" offset="2" offset-md="4" class="mb-2">
-            <b-form-row>
-              <b-col>
-                <b-button class="btn-block mb-2"
-                          variant="info"
-                          type="submit">
-                  Войти
-                </b-button>
-              </b-col>
-              <b-col>
-                <b-button variant="primary"
-                          class="btn-block" 
-                          to="/register">
-                  Регистрация
-                </b-button>
-              </b-col>
-            </b-form-row>
+            <b-button class="btn-block mb-2"
+                      variant="info"
+                      type="submit">
+              Зарегистрироваться
+            </b-button>
           </b-col>
         </b-form-row>
       </b-form>
@@ -55,8 +44,6 @@
 </template>
 
 <script>
-import auth from '../auth'
-
 export default {
   data: function() {
     return {
@@ -67,10 +54,15 @@ export default {
   },
   methods: {
     onSubmit: function() {
-      auth.login(this, {
+      this.$http.post('auth/register', {
         username: this.username,
         password: this.password
-      }, '/')
+      })
+        .then(res => {
+          this.$router.push('/login');
+        }, res => {
+          this.error = res.data;
+        });
     }
   }
 }

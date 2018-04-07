@@ -9,10 +9,15 @@ import Discounts from './components/Discounts.vue'
 import ShopList from './components/ShopList.vue'
 import ShopListPreview from './components/ShopListPreview.vue'
 import Login from './components/Login.vue'
+import Register from './components/Register.vue'
+import auth from './auth'
 
 Vue.use(BootstrapVue)
 Vue.use(VueResource);
 Vue.use(VueRouter);
+
+// Check user login on the app start
+auth.checkLogin();
 
 function passProps(route) {
   return {
@@ -24,6 +29,7 @@ function passProps(route) {
 
 const routes = [
   { path: '/login', component: Login },
+  { path: '/register', component: Register },
   { path: '/', beforeEnter: (to, from, next) => {
     // Custom redirect function
     next({ path: '/sales', query: { shop: 1, page: 1 } });
