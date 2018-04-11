@@ -56,7 +56,10 @@
         <b-row class="mb-2">
           <b-col class="text-center">
             <h4>Итого: {{totalSum}}</h4>
-            <b-btn variant="info" @click="deleteShopList">
+            <b-modal id="removeModal" @ok="deleteShopList" title="Удалить">
+              <p class="my-2">Удалить список покупок?</p>
+            </b-modal>
+            <b-btn variant="info" v-b-modal.removeModal>
               Удалить список покупок
             </b-btn>
           </b-col>
