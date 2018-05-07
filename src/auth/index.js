@@ -1,3 +1,5 @@
+import CryptoJS from 'crypto-js'
+
 export default {
   
   user: {
@@ -5,6 +7,9 @@ export default {
   },
 
   login: function(context, creds, redirect) {
+    // Hash password and cast to hex string
+    creds.password  = CryptoJS.SHA256(creds.password) + "" ;
+
     context.$http.post('auth/login', creds)
       .then(res => {
         localStorage.setItem('auth', 'Bearer ' + res.body);
@@ -27,9 +32,14 @@ export default {
   },
 
   register: function(context, creds, redirect) {
-    this.$http.post('auth/register', creds)
+    // Hash password and cast to hex string
+    creds.password  = CryptoJS.SHA256(creds.password) + "" ;
+
+    context.$http.post('auth/register', creds)
       .then(res => {
-        this.$router.replace('/login');
+        if(redirect) {
+          context.$router.replace(redirect);
+        }
       }, res => {
         context.error = res.data;
         console.log('Error(' + res.status + '): ' + res.body);

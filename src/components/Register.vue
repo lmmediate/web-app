@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import auth from '../auth'
+
 export default {
   data: function() {
     return {
@@ -54,15 +56,10 @@ export default {
   },
   methods: {
     onSubmit: function() {
-      this.$http.post('auth/register', {
+      auth.register(this, {
         username: this.username,
         password: this.password
-      })
-        .then(res => {
-          this.$router.push('/login');
-        }, res => {
-          this.error = res.data;
-        });
+      }, '/login')
     }
   }
 }
