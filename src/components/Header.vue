@@ -18,9 +18,10 @@
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-item v-if="!user.loggedIn" to="/login">
-            Вход/Регистрация
+           <font-awesome-icon :icon="loginIcon" /> Вход/Регистрация
           </b-nav-item>
           <b-nav-item v-if="user.loggedIn" v-on:click="logout">
+           <font-awesome-icon :icon="logoutIcon" />
             Выйти
           </b-nav-item>
         </b-navbar-nav>
@@ -31,8 +32,21 @@
 
 <script>
 import auth from '../auth'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import { faSignInAlt, faSignOutAlt } from '@fortawesome/fontawesome-free-solid'
 
 export default {
+  components: {
+    FontAwesomeIcon
+  },
+  computed: {
+    loginIcon () {
+      return faSignInAlt;
+    },
+    logoutIcon () {
+      return faSignOutAlt;
+    }
+  },
   data: function() {
     return {
       shops: [],
