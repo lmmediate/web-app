@@ -65,14 +65,6 @@ export default {
 }
 </script>
 
-<style scoped>
-#error {
-  color: red;
-}
-.vertical-center {
-  min-height: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-}
+<style scoped lang="scss">
+  @import '../assets/scss/login-register';
 </style>
