@@ -3,13 +3,3 @@ $primary: #607D8B;
 $dark: #455A64;
 $light: #CFD8DC;
 $info: #448AFF;
-
-.btn-group {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  > .btn {
-    @extend .m-1;
-    @extend .rounded;
-  }
-}
