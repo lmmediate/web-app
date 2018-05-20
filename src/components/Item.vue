@@ -5,7 +5,7 @@
       <div class="item-category">{{item.category}}</div>
     </div>
     <div class="item-img" v-show="showImage">
-      <b-img v-bind:src="item.imageUrl" fluid />
+      <b-img v-bind:src="item.imageUrl" fluid/>
     </div>
     <hr/>
     <div class="item-price-container">
@@ -17,87 +17,63 @@
       <div class="item-date">{{item.dateIn}} - {{item.dateOut}}</div>
       <div class="item-cond">{{parseCondition}}</div>
     </div>
-    <b-btn variant="info" class="add-btn" 
-                          v-b-modal="'modal' + item.id">
+    <b-btn variant="info" class="add-btn" @click="addItem">
       +
     </b-btn>
-    <b-modal ref="modal" 
-             hide-footer
-             :id="'modal' + item.id" 
-             title="Добавить в список покупок">
-      <div v-if="!user.loggedIn">
-        Авторизуйтесь, чтобы добавить в список покупок.
-        <router-link to="/login">Войти</router-link>
-      </div>
-      <b-list-group v-if="user.loggedIn">
-        <b-list-group-item button 
-             v-for="shoplist in shoplists"
-             @click="addItem(shoplist.id)">
-          {{shoplist.name}}
-        </b-list-group-item>
-      </b-list-group>
-    </b-modal>
   </div>
 </template>
 
 <script>
-import auth from '../auth'
-
-export default {
-  props: ['item', 'shoplists'],
-  data: function() {
-    return {
-      maxNameLength: 80,
-      showImage: true,
-      user: auth.user
-    };
-  },
-  methods: {
-    expandName: function() {
-      // TODO: always show image for small text
-      this.showImage = !this.showImage;
-      if(this.showImage) {
-        this.maxNameLength = 80;
-      } else {
-        this.maxNameLength = this.item.name.length;
+  export default {
+    props: ['item'],
+    data: function () {
+      return {
+        maxNameLength: 80,
+        showImage: true
+      };
+    },
+    methods: {
+      expandName: function () {
+        // TODO: always show image for small text
+        this.showImage = !this.showImage;
+        if (this.showImage) {
+          this.maxNameLength = 80;
+        } else {
+          this.maxNameLength = this.item.name.length;
+        }
+      },
+      addItem: function (shoplistId) {
+        this.$emit('addItem', this.item);
       }
     },
-    addItem: function(shoplistId) {
-      this.$http.post(`api/shoplist/${shoplistId}/additem?id=${this.item.id}`)
-        .catch(error => {
-          console.log(error);
-        });
-      this.$refs.modal.hide();
-    }
-  },
-  computed: {
-    displayName: function() {
-      if(this.item.name.length <= this.maxNameLength){
-        return this.item.name;
-      } else {
-        return this.item.name.slice(0, this.maxNameLength) + '...';
+    computed: {
+      displayName: function () {
+        if (this.item.name.length <= this.maxNameLength) {
+          return this.item.name;
+        } else {
+          return this.item.name.slice(0, this.maxNameLength) + '...';
+        }
+      },
+      parseCondition: function () {
+        var cond = this.item.condition;
+        return cond === '-' ? '' : cond;
+      },
+      parseDiscount: function () {
+        var disc = +this.item.discount;
+        if (Number.isNaN(disc)) {
+          return '';
+        } else {
+          return disc + '%';
+        }
+      },
+      parseOldPrice: function () {
+        return this.item.oldPrice + '\u20BD';
+      },
+      parseNewPrice: function () {
+        return this.item.newPrice + '\u20BD';
       }
-    },
-    parseCondition: function() {
-      var cond = this.item.condition;
-      return cond === '-' ? '' : cond;
-    },
-    parseDiscount: function() {
-      var disc = +this.item.discount;
-      if(Number.isNaN(disc)) {
-        return '';
-      } else {
-        return disc + '%';
-      }
-    },
-    parseOldPrice: function() {
-      return this.item.oldPrice + '\u20BD';
-    },
-    parseNewPrice: function() {
-      return this.item.newPrice + '\u20BD';
     }
   }
-}
 </script>
 
 <style scoped lang="scss">
