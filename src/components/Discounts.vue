@@ -25,19 +25,55 @@
     <!--Container with main content-->
     <b-container fluid>
 
-      <!--TODO: temp categories view-->
+
+      <!--TODO: make it beautiful-->
       <b-row class="mt-2">
         <b-col>
-          <b-nav pills>
-            <b-nav-item :to="'/sales/' + shop" exact>Все категории</b-nav-item>
-            <b-nav-item v-for="cat in categories"
-                        :to="{path:'/sales/' + shop, query: {category: cat}}"
-                        exact>
-              {{cat}}
-            </b-nav-item>
-          </b-nav>
+          <router-link to="/sales">К списку магазинов</router-link>
         </b-col>
       </b-row>
+
+      <!--Categories view for narrow screens-->
+      <media :query="{maxWidth: 768}">
+        <!--TODO: temp categories view-->
+        <b-row class="mt-2">
+          <b-col>
+            <b-dropdown text="Категория">
+              <b-dropdown-item v-if="categories.length"
+                          :to="'/sales/' + shop"
+                          exact>
+                Все категории
+              </b-dropdown-item>
+              <b-dropdown-item v-for="cat in categories"
+                               :to="{path:'/sales/' + shop, query: {category: cat}}"
+                               exact>
+                {{cat}}
+              </b-dropdown-item>
+            </b-dropdown>
+          </b-col>
+        </b-row>
+      </media>
+
+      <!--Categories view for wide screens-->
+      <media :query="{minWidth: 768}">
+        <!--TODO: temp categories view-->
+        <b-row class="mt-2">
+          <b-col>
+            <b-nav tabs>
+              <b-nav-item v-if="categories.length"
+                          :to="'/sales/' + shop"
+                          exact>
+                Все категории
+              </b-nav-item>
+              <b-nav-item v-for="cat in categories"
+                          :to="{path:'/sales/' + shop, query: {category: cat}}"
+                          exact>
+                {{cat}}
+              </b-nav-item>
+            </b-nav>
+          </b-col>
+        </b-row>
+      </media>
 
       <!--Row of item cards-->
       <b-row class="mt-2">
@@ -45,10 +81,20 @@
                cols="12" md="6" lg="4" xl="3"
                v-for="item in items"
                :key="item.id">
-          <item class="mx-auto"
-                @addItem="addItemHandler($event)"
-                btnText="+"
-                :item="item"/>
+          <!--Item view for narrow screens-->
+          <media :query="{maxWidth: 768}">
+            <item-small class="mx-auto"
+                        @addItem="addItemHandler($event)"
+                        btnText="+"
+                        :item="item"/>
+          </media>
+          <!--Item view for wide screens-->
+          <media :query="{minWidth: 768}">
+            <item class="mx-auto"
+                  @addItem="addItemHandler($event)"
+                  btnText="+"
+                  :item="item"/>
+          </media>
         </b-col>
       </b-row>
       <!--Row containing "load more" button-->

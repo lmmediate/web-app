@@ -12,7 +12,9 @@ import Login from './components/Login.vue'
 import Register from './components/Register.vue'
 import ShopSelector from './components/ShopSelector.vue'
 import auth from './auth'
+import Media from 'vue-media'
 
+Vue.component('media', Media);
 Vue.use(BootstrapVue)
 Vue.use(VueResource);
 Vue.use(VueRouter);
