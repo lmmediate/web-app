@@ -38,10 +38,12 @@
         <!--TODO: temp categories view-->
         <b-row class="mt-2">
           <b-col>
-            <b-dropdown text="Категория">
+            <b-dropdown text="Категории" no-flip>
+              <!--<template slot="button-content">Категории</template>-->
               <b-dropdown-item v-if="categories.length"
                                :to="'/sales/' + shop"
                                exact>
+                Все категории
               </b-dropdown-item>
               <b-dropdown-item v-for="cat in categories"
                                :to="{path:'/sales/' + shop, query: {category: cat}}"
