@@ -8,15 +8,23 @@
     <b-collapse is-nav id="nav_collapse">
 
       <b-navbar-nav>
-        <b-nav-item to="/sales">{{names.sales}}</b-nav-item>
-        <b-nav-item to="/shoplist">{{names.shoplist}}</b-nav-item>
+        <b-nav-item to="/sales">
+          <i class="fa fa-shopping-bag fa-fw" aria-hidden="true"></i>
+          {{names.sales}}
+        </b-nav-item>
+        <b-nav-item to="/shoplist">
+          <i class="fa fa-sticky-note fa-fw" aria-hidden="true"></i>
+          {{names.shoplist}}
+        </b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
         <b-nav-item v-if="!user.loggedIn" to="/login">
+          <i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>
           {{names.login}}
         </b-nav-item>
         <b-nav-item v-if="user.loggedIn" v-on:click="logout">
+          <i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>
           {{names.logout}}
         </b-nav-item>
       </b-navbar-nav>
@@ -74,6 +82,3 @@
     }
   }
 </script>
-
-<style>
-</style>

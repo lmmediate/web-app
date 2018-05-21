@@ -40,9 +40,8 @@
           <b-col>
             <b-dropdown text="Категория">
               <b-dropdown-item v-if="categories.length"
-                          :to="'/sales/' + shop"
-                          exact>
-                Все категории
+                               :to="'/sales/' + shop"
+                               exact>
               </b-dropdown-item>
               <b-dropdown-item v-for="cat in categories"
                                :to="{path:'/sales/' + shop, query: {category: cat}}"
@@ -103,9 +102,12 @@
                v-if="items.length && items.length < itemsTotal">
           <b-btn id="load-more-btn"
                  variant="info"
+                 v-show="!loading"
                  @click="downloadItems">
             Загрузить еще
           </b-btn>
+          <i class="fa fa-spinner fa-spin fa-3x fa-fw"
+             v-show="loading"></i>
         </b-col>
       </b-row>
     </b-container>
@@ -132,6 +134,7 @@
         itemsTotal: 0,
         shoplists: [],
         itemToAdd: null,
+        loading: false,
         user: auth.user
       }
     },
@@ -144,6 +147,7 @@
     },
     methods: {
       downloadItems: function () {
+        this.loading = true;
         var req;
         if (this.category) {
           req = `api/shops/${this.shopId}?category=${this.category}&page=${this.page}`;
@@ -157,6 +161,7 @@
             this.items = this.items.concat(res.data.rows);
             // Increase page after download completed
             this.page++;
+            this.loading = false;
           });
       },
       downloadShop: function () {
