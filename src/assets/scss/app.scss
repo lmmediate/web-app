@@ -1,3 +1,19 @@
-@import "custom";
-@import "~bootstrap/scss/bootstrap.scss";
+$body-bg: rgb(242, 242, 242);
 
+$theme-colors: (
+  "primary": #607D8B,
+  "dark": #455A64,
+  "light": #CFD8DC,
+  "accent": #448AFF,
+  "text-primary": #212121,
+  "text-secondary": #757575,
+);
+
+// Scrollable category switcher dropdown
+.dropdown-menu {
+  height: auto;
+  max-height: 300px;
+  overflow-x: hidden;
+}
+
+@import "~bootstrap/scss/bootstrap.scss";
