@@ -2,6 +2,7 @@
   <b-container fluid>
     <b-row class="mt-2">
       <b-col cols="12" md="6" lg="4" xl="3"
+             class="mb-2"
              v-for="shop in shops" :key="shop.id">
         <b-card>
           <p class="card-text">
