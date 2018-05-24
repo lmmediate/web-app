@@ -103,7 +103,7 @@
         <b-col class="text-center"
                v-if="items.length && items.length < itemsTotal">
           <b-btn id="load-more-btn"
-                 variant="info"
+                 variant="accent"
                  v-show="!loading"
                  @click="downloadItems">
             Загрузить еще
