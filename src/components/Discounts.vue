@@ -209,7 +209,7 @@
       // =========================================================================================================== //
       '$route.query': function (oldQuery, newQuery) {
         // Reset variables before download
-        this.page = 0;
+        this.page = 1;
         this.items = [];
         this.downloadItems();
       }
