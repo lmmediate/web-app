@@ -46,7 +46,7 @@
                          v-model="customItem"
                          placeholder="Название товара">
                   </b-form-input>
-                  <b-btn variant="info" type="submit">Добавить</b-btn>
+                  <b-btn variant="accent" type="submit">Добавить</b-btn>
                 </b-form>
               </b-col>
             </b-row>
@@ -59,7 +59,7 @@
             <b-modal id="removeModal" @ok="deleteShopList" title="Удалить">
               <p class="my-2">Удалить список покупок?</p>
             </b-modal>
-            <b-btn variant="info" v-b-modal.removeModal>
+            <b-btn variant="accent" v-b-modal.removeModal>
               Удалить список покупок
             </b-btn>
           </b-col>

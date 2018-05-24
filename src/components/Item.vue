@@ -17,7 +17,7 @@
       <div class="item-date">{{item.dateIn}} - {{item.dateOut}}</div>
       <div class="item-cond">{{parseCondition}}</div>
     </div>
-    <b-btn variant="info" class="add-btn" @click="addItem">
+    <b-btn variant="accent" class="add-btn" @click="addItem">
       +
     </b-btn>
   </div>

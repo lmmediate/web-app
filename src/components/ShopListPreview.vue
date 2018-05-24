@@ -14,7 +14,7 @@
       </b-row>
       <b-row class="mb-2">
         <b-col>
-          <b-btn variant="info" v-b-modal.new-shoplist>Добавить</b-btn>
+          <b-btn variant="accent" v-b-modal.new-shoplist>Добавить</b-btn>
           <b-modal
                  ref="modal"
                  id="new-shoplist"

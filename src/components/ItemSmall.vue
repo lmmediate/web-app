@@ -16,7 +16,7 @@
       <!-- <div class="item-date">{{item.dateIn}} - {{item.dateOut}}</div> -->
       <!-- <div class="item-cond">{{item.condition}}</div> -->
     </div>
-    <b-btn variant="info" class="add-btn" v-on:click="handleBtnClick">{{btnText}}</b-btn>
+    <b-btn variant="accent" class="add-btn" v-on:click="handleBtnClick">{{btnText}}</b-btn>
   </div>
 </template>
 

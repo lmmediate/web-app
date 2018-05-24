@@ -25,7 +25,7 @@
              v-bind:item="matchingItem">
           </item-small>
         </div>
-        </p>
+        <b-btn block variant="accent" v-on:click="removeCustomItem">Удалить</b-btn>
       </b-card-body>
     </b-collapse>
   </b-card>
