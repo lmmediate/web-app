@@ -8,7 +8,7 @@
     <b-collapse v-bind:id="'collapse' + item.id" accordion="my-accordion" role="tabpanel">
       <b-card-body>
         <p class="card-text text-center">
-          <b-btn v-on:click="removeCustomItem">Удалить</b-btn>
+          <b-btn variant="accent" v-on:click="removeCustomItem">Удалить</b-btn>
         </p>
         <p class="card-text" v-if="variant === 'danger'">
           К сожалению, таких товаров не нашлось...
@@ -25,7 +25,6 @@
              v-bind:item="matchingItem">
           </item-small>
         </div>
-        <b-btn block variant="accent" v-on:click="removeCustomItem">Удалить</b-btn>
       </b-card-body>
     </b-collapse>
   </b-card>
